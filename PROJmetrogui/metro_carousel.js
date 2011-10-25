@@ -23,15 +23,16 @@
 var CLASSmetrocarousel = Class.extend(
 	 {
 		  // A map where ID is the image URL and the value is a boolean specifying whether confirmed as loaded or not
-		  imageloadstatus: {},
-		  imageloadqueue: [],
 
 		  initialize: function(IDdomdiv, imagebank, transitionstyle, secsperimage)
 		  {
             this.IDdomdiv = IDdomdiv;
 				this.JQNODEdomdiv = $('#'+IDdomdiv);
-				
+
 				this.imagebank = imagebank;
+
+				this.imageloadstatus = {};
+				this.imageloadqueue =  new Array();
 
 				this.asyncloadimages();
 		  },
@@ -51,15 +52,17 @@ var CLASSmetrocarousel = Class.extend(
 				if (this.imageloadqueue.length > 0) {
 					 var imgN = new Image();
 					 imgN.src = this.imageloadqueue.shift();
+					 console.log(imgN.src);
 					 imgN.metrobj = this;
 					 var JQNODEimg = $(imgN);
-					 this.JQNODEdomdiv.append(JQNODEimg);
+					 // this.JQNODEdomdiv.append(JQNODEimg);
 					 JQNODEimg.css("opacity","1.0");
 					 $(imgN).load(function(ev){
 											// FUNCTION HAS LOST THE this CONTEXT!
 											// TODO: Ask Jeff how to use binding to handle this kind of situation.
 											var THIS = ev.target.metrobj;
-											THIS.imageloadstatus[ev.currentTarget.attributes["src"].nodeValue] = true;
+											THIS.imageloadstatus[ev.currentTarget.attributes["src"].nodeValue] = 
+												 $(ev.currentTarget);
 											THIS.loadNextImage();
 									  });
 				}else{
@@ -69,9 +72,39 @@ var CLASSmetrocarousel = Class.extend(
 		  },
 
 		  startmovie: function() {
-				
+				this.frameindex = 0;
+				this.gotoframe();
+		  },
+
+		  gotoframe: function() {
+				var THIS = this;
+				var framedata = this.imagebank[this.frameindex];
+
+				// If image not loaded yet for this frame, then delay.
+				if (this.imageloadstatus[framedata.image] == null) {
+					 setTimeout(function(){THIS.gotoframe();}, 250);
+					 return;
+				}
+
+				// Setup the frame at its initial 0% opacity
+				var JQimgnode = this.imageloadstatus[framedata.image];
+				JQimgnode.css("opacity", "0.0");
+				JQimgnode.css("width", this.JQNODEdomdiv.width());
+				JQimgnode.css("height", this.JQNODEdomdiv.height());
+				this.JQNODEdomdiv.append(JQimgnode);
+
+				var tweenie = new PennerOpacityTween(
+					 JQimgnode.get(0),
+					 PennerTween.linear,
+					 0, 100, 2);
+				tweenie.onMotionFinished = function(){
+					 THIS.proceednextframe();};
+				tweenie.start();
+		  },
+
+		  proceednextframe: function() {
+				alert("WOW");
 		  }
-		  
 	 }
 );
 

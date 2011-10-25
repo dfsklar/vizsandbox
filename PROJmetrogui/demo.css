@@ -1,0 +1,9 @@
+body {
+	 background-color: black;
+}
+
+div#testcarousel {
+	 background-color: black;
+	 width: 250px;
+	 height: 250px;
+}
