@@ -29,7 +29,7 @@ var CLASSmetrocarousel = Class.extend(
 		  initialize: function(IDdomdiv, imagebank, transitionstyle, secsperimage)
 		  {
             this.IDdomdiv = IDdomdiv;
-				this.JQNODEdomdiv = $('#'+this.IDdomdiv);
+				this.JQNODEdomdiv = $('#'+IDdomdiv);
 				
 				this.imagebank = imagebank;
 
@@ -39,11 +39,12 @@ var CLASSmetrocarousel = Class.extend(
 		  asyncloadimages: function() {
 				_.each(this.imagebank,
 						 function(map) {
-							  this.imageloadstatus[map['image']] = false;
+							  this.imageloadstatus[map['image']] = null;
 							  this.imageloadqueue.push(map['image']);
 						 },
 						 this);
 				this.loadNextImage();
+				this.startmovie();
 		  },
 
 		  loadNextImage: function() {
@@ -51,37 +52,50 @@ var CLASSmetrocarousel = Class.extend(
 					 var imgN = new Image();
 					 imgN.src = this.imageloadqueue.shift();
 					 imgN.metrobj = this;
+					 var JQNODEimg = $(imgN);
+					 this.JQNODEdomdiv.append(JQNODEimg);
+					 JQNODEimg.css("opacity","1.0");
 					 $(imgN).load(function(ev){
 											// FUNCTION HAS LOST THE this CONTEXT!
-											// TODO: Ask Jeff how to use binding to repair.
+											// TODO: Ask Jeff how to use binding to handle this kind of situation.
 											var THIS = ev.target.metrobj;
 											THIS.imageloadstatus[ev.currentTarget.attributes["src"].nodeValue] = true;
 											THIS.loadNextImage();
 									  });
 				}else{
-					 if (this.EVHNDLallImagesLoaded()) 
+					 if (this.EVHNDLallImagesLoaded) 
 						  this.EVHNDLallImagesLoaded();
 				}
+		  },
+
+		  startmovie: function() {
+				
 		  }
+		  
 	 }
 );
 
 
 
-
-
-var TESTOBJ = new CLASSmetrocarousel 
-("testcarousel",
- [
-	  {
-			image: "starrynight.jpg",
-			caption: "NUMBER 1"
-	  },
-	  {
-			image: "vaportrail.png",
-			caption: "NUMBER 2"
-	  }
- ],
- "default",
- 5
+$(document).ready
+(
+	 function()
+	 {
+		  window.TESTOBJ = new CLASSmetrocarousel 
+		  ("testcarousel",
+			[
+				 {
+					  image: "starrynight.jpg",
+					  caption: "NUMBER 1"
+				 },
+				 {
+					  image: "vaportrail.jpg",
+					  caption: "NUMBER 2"
+				 }
+			],
+			"default",
+			5
+		  );
+	 }
 );
+
