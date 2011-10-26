@@ -26,7 +26,7 @@ var CLASSmetrocarousel = Class.extend(
 
 		  initialize: function(IDdomdiv, imagebank, configmap)
 		  {
-				this.MAPconfig = configmap;
+				this.$$ = configmap;
 				// "marginBelowBanner": num in pixels
 				// "transitionstyle": right now this is ignored
 
@@ -86,7 +86,7 @@ var CLASSmetrocarousel = Class.extend(
 				this.JQNODEbanner.css(
 					 {
 						  position: "relative",
-						  opacity: "0.5",
+						  opacity: "0.0",
 						  top: 
  						  String(0-this.JQNODEbanner.height()-12)+"px"
 					 }
@@ -94,7 +94,7 @@ var CLASSmetrocarousel = Class.extend(
 				this.JQNODElabeltext.css(
 					 {
 						  position: "relative",
-						  opacity: "1.0",
+						  opacity: "0.0",
 						  top: 
  						  String(0 - (this.JQNODEbanner.height()) - (this.JQNODElabeltext.height()) - 12 -
 									((this.JQNODEbanner.height()-this.JQNODElabeltext.height())/2))
@@ -102,40 +102,65 @@ var CLASSmetrocarousel = Class.extend(
 					 }
 				);
 
-				this.gotoframe();
+				this.startframe();
 		  },
 
-		  gotoframe: function() {
+
+
+		  startframe: function() {
 				var THIS = this;
 				var framedata = this.imagebank[this.frameindex];
 
 				// If image not loaded yet for this frame, then delay.
 				if (this.imageloadstatus[framedata.image] == null) {
-					 setTimeout(function(){THIS.gotoframe();}, 250);
+					 setTimeout(function(){THIS.startframe();}, 250);
 					 return;
 				}
 
 				// Setup the frame at its initial 0% opacity
 				var JQimgnode = this.imageloadstatus[framedata.image];
-				JQimgnode.css("opacity", "0.0");
-				JQimgnode.css("width", this.JQNODEdomdiv.width());
-				JQimgnode.css("height", this.JQNODEdomdiv.height());
+				JQimgnode.css(
+					 {opacity: "0.0",
+					  width:  this.JQNODEdomdiv.width(),
+					  height: this.JQNODEdomdiv.height()
+					  });
 				this.JQNODEimageholder.append(JQimgnode);
 
+				// FADE IN THE IMAGE
 				var tweenie = new PennerOpacityTween(
 					 JQimgnode.get(0),
 					 PennerTween.linear,
 					 0, 100, 2);
 				tweenie.onMotionFinished = function(){
-					 THIS.proceednextframe();};
+					 THIS.sleepandthen(6,
+											 function(){THIS.proceednextframe();})};
 				tweenie.start();
 
 
+				// FADE IN THE BANNER
+				var tweenieBanner = new PennerOpacityTween(
+					 this.JQNODEbanner.get(0),
+					 PennerTween.linear,
+					 0, 40, 3);
+				tweenieBanner.start();
+
+				this.JQNODElabeltext.html(framedata.caption);
+
+				var tweenieText = new PennerOpacityTween(
+					 this.JQNODElabeltext.get(0),
+					 PennerTween.linear,
+					 0, 100, 3);
+				tweenieText.start();
+
+		  },
+
+		  sleepandthen: function(numsec, arg) {
+				var THIS = this;
+				setTimeout(function(){arg();}, numsec*1000);
 		  },
 
 		  proceednextframe: function() {
-				
-				
+				alert(this.sleepandthen);
 		  }
 	 }
 );
@@ -151,11 +176,11 @@ $(document).ready
 			[
 				 {
 					  image: "starrynight.jpg",
-					  caption: "NUMBER 1"
+					  caption: "\"Starry Night\""
 				 },
 				 {
 					  image: "vaportrail.jpg",
-					  caption: "NUMBER 2"
+					  caption: "\"Vapor Trail\"\""
 				 }
 			],
 			"default",
