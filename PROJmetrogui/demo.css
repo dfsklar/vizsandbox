@@ -4,11 +4,11 @@ body {
 
 div#testcarousel {
 	 background-color: black;
-	 width: 320px;
-	 height: 320px;
+	 width: 300px;
+	 height: 300px;
 	 position: absolute;
 	 top: 150;
-	 left: 300;
+	 left: 150;
 }
 
 
@@ -25,4 +25,33 @@ div.metrocarousel_labeltext {
 	 position: relative;
 	 font-size: 22px;
 	 font-family: 'Sansita One', cursive;
+}
+
+
+
+
+
+
+
+
+div#testbignum {
+	 background-color: steelblue;
+	 width: 250px;
+	 height: 200px;
+	 position: absolute;
+	 top: 550;
+	 left: 250;
+	 font-family: "Bowlby One SC", arial;
+}
+
+div.metrobignum_bignum {
+	 color: white;
+	 text-align: center;
+	 font-size: 80px;
+}
+div.metrobignum_labeltext {
+	 color: lightblue;
+	 text-align: center;
+	 font-size: 20px;
+	 font-family: "Voltaire", arial;
 }
