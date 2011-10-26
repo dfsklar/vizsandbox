@@ -149,7 +149,7 @@ var CLASSmetrocarousel = Class.extend(
 
 				var tweenieText = new PennerOpacityTween(
 					 this.JQNODElabeltext.get(0),
-					 PennerTween.linear,
+					 PennerTween.regularEaseOut,
 					 0, 100, 3);
 				tweenieText.start();
 		  },
@@ -253,7 +253,7 @@ $(document).ready
 				 },
 				 {
 					  image: "vaportrail.jpg",
-					  caption: "\"Vapor Trail\"\""
+					  caption: "\"Vapor Trail\""
 				 }
 			],
 			"default",
