@@ -10,12 +10,10 @@
 var CLASSmetrobignum = Class.extend(CLASSmetrotilebase,
 	 {
 
-		  initialize: function(IDdomdiv, data, configmap)
+		  initialize: function(IDdomdiv, script, configmap)
 		  {
 				// Call the base class initializer
-				this.parent(IDdomdiv, new Array(), configmap);
-
-				this.databank = data;
+				this.parent(IDdomdiv, script, configmap);
 		  },
 
 		  placeactors: function() {
@@ -41,13 +39,13 @@ var CLASSmetrobignum = Class.extend(CLASSmetrotilebase,
 
 		  startframe: function() {
 				var THIS = this;
-				var framedata = this.databank[this.frameindex];
+				var framedata = this.script[this.frameindex];
 
-//				this.JQNODE.bignumtext.empty();
-				this.JQNODE.bignumtext.html(framedata.num);
+//				this.JQNODEbignumtext.empty();
+				this.JQNODEbignumtext.html(framedata.num);
 
-//				this.JQNODE.labeltext.empty();
-				this.JQNODE.labeltext.html(framedata.num);
+//				this.JQNODElabeltext.empty();
+				this.JQNODElabeltext.html(framedata.caption);
 
 				// FADE IN THE BANNER
 				var tweenieBanner = new PennerOpacityTween(
@@ -56,6 +54,9 @@ var CLASSmetrobignum = Class.extend(CLASSmetrotilebase,
 					 0, 
 					 this.$$["opacity-banner"], 
 					 this.$$["duration-fadein-banner"]);
+				tweenieBanner.onMotionFinished = function(){
+					 THIS.sleepandthen(THIS.$$["duration-hold-on"],
+											 function(){THIS.proceednextframe();})};
 				tweenieBanner.start();
 
 				var tweenieText = new PennerOpacityTween(
@@ -71,7 +72,7 @@ var CLASSmetrobignum = Class.extend(CLASSmetrotilebase,
 
 		  endframe: function(nextstep) {
 				var THIS = this;
-				var framedata = this.imagebank[this.frameindex];
+				var framedata = this.script[this.frameindex];
 
 
 				// FADE OUTTHE BANNER
@@ -81,6 +82,8 @@ var CLASSmetrobignum = Class.extend(CLASSmetrotilebase,
 					 this.$$["opacity-banner"], 
 					 0, 
 					 this.$$["duration-fadeout-banner"]);
+				tweenieBanner.onMotionFinished = function(){
+					 THIS.sleepandthen(THIS.$$["duration-hold-off"], nextstep);};
 				tweenieBanner.start();
 
 				var tweenieText = new PennerOpacityTween(

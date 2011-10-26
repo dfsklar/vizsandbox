@@ -2,10 +2,10 @@
 var CLASSmetrocarousel = Class.extend(CLASSmetrotilebase,
 	 {
 
-		  initialize: function(IDdomdiv, imagebank, configmap)
+		  initialize: function(IDdomdiv, script, configmap)
 		  {
 				// Call the base class initializer
-				this.parent(IDdomdiv, imagebank, configmap);
+				this.parent(IDdomdiv, script, configmap);
 
 		  },
 
@@ -42,7 +42,7 @@ var CLASSmetrocarousel = Class.extend(CLASSmetrotilebase,
 
 		  startframe: function() {
 				var THIS = this;
-				var framedata = this.imagebank[this.frameindex];
+				var framedata = this.script[this.frameindex];
 
 				// If image not loaded yet for this frame, then delay.
 				if (this.imageloadstatus[framedata.image] == null) {
@@ -97,7 +97,7 @@ var CLASSmetrocarousel = Class.extend(CLASSmetrotilebase,
 
 		  endframe: function(nextstep) {
 				var THIS = this;
-				var framedata = this.imagebank[this.frameindex];
+				var framedata = this.script[this.frameindex];
 
 				// Setup the frame at its initial 0% opacity
 				var JQimgnode = this.imageloadstatus[framedata.image];
@@ -136,7 +136,7 @@ var CLASSmetrocarousel = Class.extend(CLASSmetrotilebase,
 
 		  readyforframe: function(framenum) {
 				// If the next frame's image is not loaded yet, defer
-				var nextframedata = this.imagebank[framenum];
+				var nextframedata = this.script[framenum];
 				return  ! (this.imageloadstatus[nextframedata.image] == null);
 		  }
 	 }

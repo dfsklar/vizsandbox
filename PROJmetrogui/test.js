@@ -65,6 +65,22 @@ $(document).ready
 					  caption: "bottles of beer on the wall"
 				 },
 				 {
+					  num: "10",
+					  caption: "Commandments"
+				 },
+				 {
+					  num: "5",
+					  caption: "golden rings"
+				 },
+				 {
+					  num: "8",
+					  caption: "'... days a week'"
+				 },
+				 {
+					  num: "9,892",
+					  caption: "... but who's counting?"
+				 },
+				 {
 					  num: "12",
 					  caption: "days of Christmas"
 				 }
@@ -88,7 +104,7 @@ $(document).ready
 				 "opacity-banner": 100,
 				 "opacity-text": 100,
 
-				 "duration-hold-on": 4,
+				 "duration-hold-on": 1,
 				 "duration-hold-off": 0
 			}
 		  );

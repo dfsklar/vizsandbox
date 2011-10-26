@@ -2,14 +2,14 @@ var CLASSmetrotilebase = Class.extend(
 	 {
 		  // A map where ID is the image URL and the value is a boolean specifying whether confirmed as loaded or not
 
-		  initialize: function(IDdomdiv, imagebank, configmap)
+		  initialize: function(IDdomdiv, script, configmap)
 		  {
 				this.$$ = configmap;
 
             this.IDdomdiv = IDdomdiv;
 				this.JQNODEdomdiv = $('#'+IDdomdiv);
 
-				this.imagebank = imagebank;
+				this.script = script;
 
 				this.imageloadstatus = {};
 				this.imageloadqueue =  new Array();
@@ -18,10 +18,12 @@ var CLASSmetrotilebase = Class.extend(
 		  },
 
 		  asyncloadimages: function() {
-				_.each(this.imagebank,
+				_.each(this.script,
 						 function(map) {
-							  this.imageloadstatus[map['image']] = null;
-							  this.imageloadqueue.push(map['image']);
+							  if (map['image']) {
+									this.imageloadstatus[map['image']] = null;
+									this.imageloadqueue.push(map['image']);
+							  }
 						 },
 						 this);
 				this.loadNextImage();
@@ -69,7 +71,7 @@ var CLASSmetrotilebase = Class.extend(
 		  // returns false if the animation should be stopped immediately, i.e. do not move to any "next frame"
 		  planincrementframeindex: function() {
 				this.nextframeindex = this.frameindex+1;
-				if (this.nextframeindex >= this.imagebank.length) {
+				if (this.nextframeindex >= this.script.length) {
 					 if (this.$$["behavior-at-end"] == "loop")
 						  this.nextframeindex=0;
 					 else
@@ -82,7 +84,7 @@ var CLASSmetrotilebase = Class.extend(
 				var THIS = this;
 
 				// If there is only one frame, do nothing; this movie is over, looping makes no sense.
-				if (this.imagebank.length == 1)
+				if (this.script.length == 1)
 					 return;
 
 				if ( ! this.planincrementframeindex()) {

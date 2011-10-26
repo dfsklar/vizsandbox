@@ -36,7 +36,7 @@ div.metrocarousel_labeltext {
 
 div#testbignum {
 	 background-color: steelblue;
-	 width: 250px;
+	 width: 285px;
 	 height: 200px;
 	 position: absolute;
 	 top: 550;
@@ -52,6 +52,6 @@ div.metrobignum_bignum {
 div.metrobignum_labeltext {
 	 color: lightblue;
 	 text-align: center;
-	 font-size: 20px;
+	 font-size: 26px;
 	 font-family: "Voltaire", arial;
 }
