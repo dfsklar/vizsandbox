@@ -88,7 +88,7 @@ var CLASSmetrocarousel = Class.extend(
 						  position: "relative",
 						  opacity: "0.0",
 						  top: 
- 						  String(0-this.JQNODEbanner.height()-12)+"px"
+ 						  String(0-this.JQNODEbanner.height()-this.$$["margin-below-banner"])+"px"
 					 }
 				);
 				this.JQNODElabeltext.css(
@@ -96,7 +96,8 @@ var CLASSmetrocarousel = Class.extend(
 						  position: "relative",
 						  opacity: "0.0",
 						  top: 
- 						  String(0 - (this.JQNODEbanner.height()) - (this.JQNODElabeltext.height()) - 12 -
+ 						  String(0 - (this.JQNODEbanner.height()) - (this.JQNODElabeltext.height()) - 
+									this.$$["margin-below-banner"] -
 									((this.JQNODEbanner.height()-this.JQNODElabeltext.height())/2))
 								+"px"
 					 }
@@ -130,10 +131,12 @@ var CLASSmetrocarousel = Class.extend(
 				// FADE IN THE IMAGE
 				var tweenie = new PennerOpacityTween(
 					 JQimgnode.get(0),
-					 PennerTween.linear,
-					 0, 100, 2);
+					 this.$$["algorithm-fadein-image"],
+					 0, 
+					 this.$$["opacity-image"],
+					 this.$$["duration-fadein-image"]);
 				tweenie.onMotionFinished = function(){
-					 THIS.sleepandthen(6,
+					 THIS.sleepandthen(THIS.$$["duration-hold-on"],
 											 function(){THIS.proceednextframe();})};
 				tweenie.start();
 
@@ -141,16 +144,20 @@ var CLASSmetrocarousel = Class.extend(
 				// FADE IN THE BANNER
 				var tweenieBanner = new PennerOpacityTween(
 					 this.JQNODEbanner.get(0),
-					 PennerTween.linear,
-					 0, 40, 3);
+					 this.$$["algorithm-fadein-banner"],
+					 0, 
+					 this.$$["opacity-banner"], 
+					 this.$$["duration-fadein-banner"]);
 				tweenieBanner.start();
 
 				this.JQNODElabeltext.html(framedata.caption);
 
 				var tweenieText = new PennerOpacityTween(
 					 this.JQNODElabeltext.get(0),
-					 PennerTween.regularEaseOut,
-					 0, 100, 3);
+					 this.$$["algorithm-fadein-text"],
+					 0,
+					 this.$$["opacity-text"], 
+					 this.$$["duration-fadein-text"]);
 				tweenieText.start();
 		  },
 
@@ -166,26 +173,30 @@ var CLASSmetrocarousel = Class.extend(
 				// FADE OUT THE IMAGE
 				var tweenie = new PennerOpacityTween(
 					 JQimgnode.get(0),
-					 PennerTween.linear,
-					 100, 0, 1);
+					 this.$$["algorithm-fadein-image"],
+					 this.$$["opacity-image"],
+					 0, 
+					 this.$$["duration-fadeout-image"]);
 				tweenie.onMotionFinished = function(){
-					 THIS.sleepandthen(0, nextstep);};
+					 THIS.sleepandthen(THIS.$$["duration-hold-off"], nextstep);};
 				tweenie.start();
 
 
 				// FADE OUTTHE BANNER
 				var tweenieBanner = new PennerOpacityTween(
 					 this.JQNODEbanner.get(0),
-					 PennerTween.linear,
-					 40, 0, 0.75);
+					 this.$$["algorithm-fadein-banner"],
+					 this.$$["opacity-banner"], 
+					 0, 
+					 this.$$["duration-fadeout-banner"]);
 				tweenieBanner.start();
-
-				this.JQNODElabeltext.html(framedata.caption);
 
 				var tweenieText = new PennerOpacityTween(
 					 this.JQNODElabeltext.get(0),
-					 PennerTween.linear,
-					 100, 0, 0.75);
+					 this.$$["algorithm-fadein-text"],
+					 this.$$["opacity-text"], 
+					 0,
+					 this.$$["duration-fadeout-text"]);
 				tweenieText.start();
 		  },
 
@@ -205,10 +216,17 @@ var CLASSmetrocarousel = Class.extend(
 				setTimeout(function(){arg();}, numsec*1000);
 		  },
 
+
+		  // returns false if the animation should be stopped immediately, i.e. do not move to any "next frame"
 		  planincrementframeindex: function() {
 				this.nextframeindex = this.frameindex+1;
-				if (this.nextframeindex >= this.imagebank.length)
-					 this.nextframeindex=0;
+				if (this.nextframeindex >= this.imagebank.length) {
+					 if (this.$$["behavior-at-end"] == "loop")
+						  this.nextframeindex=0;
+					 else
+						  return false;
+				}
+				return true;
 		  },
 
 		  proceednextframe: function() {
@@ -218,7 +236,9 @@ var CLASSmetrocarousel = Class.extend(
 				if (this.imagebank.length == 1)
 					 return;
 
-				this.planincrementframeindex();
+				if ( ! this.planincrementframeindex()) {
+					 return;
+				}
 
 				// If the next frame's image is not loaded yet, defer
 				var nextframedata = this.imagebank[this.nextframeindex];
@@ -239,26 +259,4 @@ var CLASSmetrocarousel = Class.extend(
 );
 
 
-
-$(document).ready
-(
-	 function()
-	 {
-		  window.TESTOBJ = new CLASSmetrocarousel 
-		  ("testcarousel",
-			[
-				 {
-					  image: "starrynight.jpg",
-					  caption: "\"Starry Night\""
-				 },
-				 {
-					  image: "vaportrail.jpg",
-					  caption: "\"Vapor Trail\""
-				 }
-			],
-			"default",
-			5
-		  );
-	 }
-);
 

@@ -4,8 +4,11 @@ body {
 
 div#testcarousel {
 	 background-color: black;
-	 width: 250px;
-	 height: 250px;
+	 width: 320px;
+	 height: 320px;
+	 position: absolute;
+	 top: 150;
+	 left: 300;
 }
 
 
@@ -20,7 +23,6 @@ div.metrocarousel_labeltext {
 	 text-align: right;
 	 padding-right: 18px;
 	 position: relative;
-	 font-size: 18px;
-	 font-weight: bold;
-	 font-family: helvetica, verdana;
+	 font-size: 22px;
+	 font-family: 'Sansita One', cursive;
 }
