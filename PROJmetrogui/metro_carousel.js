@@ -124,6 +124,7 @@ var CLASSmetrocarousel = Class.extend(
 					  width:  this.JQNODEdomdiv.width(),
 					  height: this.JQNODEdomdiv.height()
 					  });
+				this.JQNODEimageholder.empty();
 				this.JQNODEimageholder.append(JQimgnode);
 
 				// FADE IN THE IMAGE
@@ -151,16 +152,88 @@ var CLASSmetrocarousel = Class.extend(
 					 PennerTween.linear,
 					 0, 100, 3);
 				tweenieText.start();
-
 		  },
+
+
+
+		  endframe: function(nextstep) {
+				var THIS = this;
+				var framedata = this.imagebank[this.frameindex];
+
+				// Setup the frame at its initial 0% opacity
+				var JQimgnode = this.imageloadstatus[framedata.image];
+
+				// FADE OUT THE IMAGE
+				var tweenie = new PennerOpacityTween(
+					 JQimgnode.get(0),
+					 PennerTween.linear,
+					 100, 0, 1);
+				tweenie.onMotionFinished = function(){
+					 THIS.sleepandthen(0, nextstep);};
+				tweenie.start();
+
+
+				// FADE OUTTHE BANNER
+				var tweenieBanner = new PennerOpacityTween(
+					 this.JQNODEbanner.get(0),
+					 PennerTween.linear,
+					 40, 0, 0.75);
+				tweenieBanner.start();
+
+				this.JQNODElabeltext.html(framedata.caption);
+
+				var tweenieText = new PennerOpacityTween(
+					 this.JQNODElabeltext.get(0),
+					 PennerTween.linear,
+					 100, 0, 0.75);
+				tweenieText.start();
+		  },
+
+
+
+
+
+
+
+
+
+
+
 
 		  sleepandthen: function(numsec, arg) {
 				var THIS = this;
 				setTimeout(function(){arg();}, numsec*1000);
 		  },
 
+		  planincrementframeindex: function() {
+				this.nextframeindex = this.frameindex+1;
+				if (this.nextframeindex >= this.imagebank.length)
+					 this.nextframeindex=0;
+		  },
+
 		  proceednextframe: function() {
-				alert(this.sleepandthen);
+				var THIS = this;
+
+				// If there is only one frame, do nothing; this movie is over, looping makes no sense.
+				if (this.imagebank.length == 1)
+					 return;
+
+				this.planincrementframeindex();
+
+				// If the next frame's image is not loaded yet, defer
+				var nextframedata = this.imagebank[this.nextframeindex];
+				if (this.imageloadstatus[nextframedata.image] == null) {
+					 setTimeout(function(){THIS.proceednextframe();}, 250);
+					 return;
+				}
+
+				// Fade out the current frame, and ensure the increment process proceeds thereafter
+				var THIS=this;
+				THIS.endframe(
+					 function(){
+						  THIS.frameindex = THIS.nextframeindex;
+						  THIS.startframe();
+					 });
 		  }
 	 }
 );
