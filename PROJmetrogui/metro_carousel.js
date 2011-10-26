@@ -24,10 +24,19 @@ var CLASSmetrocarousel = Class.extend(
 	 {
 		  // A map where ID is the image URL and the value is a boolean specifying whether confirmed as loaded or not
 
-		  initialize: function(IDdomdiv, imagebank, transitionstyle, secsperimage)
+		  initialize: function(IDdomdiv, imagebank, configmap)
 		  {
+				this.MAPconfig = configmap;
+				// "marginBelowBanner": num in pixels
+				// "transitionstyle": right now this is ignored
+
+
             this.IDdomdiv = IDdomdiv;
 				this.JQNODEdomdiv = $('#'+IDdomdiv);
+
+				this.JQNODEimageholder = this.JQNODEdomdiv.children(".metrocarousel_image");
+				this.JQNODEbanner = this.JQNODEdomdiv.children(".metrocarousel_banner");
+				this.JQNODElabeltext = this.JQNODEdomdiv.children(".metrocarousel_labeltext");
 
 				this.imagebank = imagebank;
 
@@ -55,7 +64,6 @@ var CLASSmetrocarousel = Class.extend(
 					 console.log(imgN.src);
 					 imgN.metrobj = this;
 					 var JQNODEimg = $(imgN);
-					 // this.JQNODEdomdiv.append(JQNODEimg);
 					 JQNODEimg.css("opacity","1.0");
 					 $(imgN).load(function(ev){
 											// FUNCTION HAS LOST THE this CONTEXT!
@@ -73,6 +81,27 @@ var CLASSmetrocarousel = Class.extend(
 
 		  startmovie: function() {
 				this.frameindex = 0;
+
+				// Place the banner and label appropriately
+				this.JQNODEbanner.css(
+					 {
+						  position: "relative",
+						  opacity: "0.5",
+						  top: 
+ 						  String(0-this.JQNODEbanner.height()-12)+"px"
+					 }
+				);
+				this.JQNODElabeltext.css(
+					 {
+						  position: "relative",
+						  opacity: "1.0",
+						  top: 
+ 						  String(0 - (this.JQNODEbanner.height()) - (this.JQNODElabeltext.height()) - 12 -
+									((this.JQNODEbanner.height()-this.JQNODElabeltext.height())/2))
+								+"px"
+					 }
+				);
+
 				this.gotoframe();
 		  },
 
@@ -91,7 +120,7 @@ var CLASSmetrocarousel = Class.extend(
 				JQimgnode.css("opacity", "0.0");
 				JQimgnode.css("width", this.JQNODEdomdiv.width());
 				JQimgnode.css("height", this.JQNODEdomdiv.height());
-				this.JQNODEdomdiv.append(JQimgnode);
+				this.JQNODEimageholder.append(JQimgnode);
 
 				var tweenie = new PennerOpacityTween(
 					 JQimgnode.get(0),
@@ -100,10 +129,13 @@ var CLASSmetrocarousel = Class.extend(
 				tweenie.onMotionFinished = function(){
 					 THIS.proceednextframe();};
 				tweenie.start();
+
+
 		  },
 
 		  proceednextframe: function() {
-				alert("WOW");
+				
+				
 		  }
 	 }
 );

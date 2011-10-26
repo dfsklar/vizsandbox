@@ -17,7 +17,17 @@
 </head>
 
 <body>
-   <div id='testcarousel'   width='500px'  height='500px'/>
+   <div class='metrocarousel_tile'     id='testcarousel'   width='500px'  height='500px'>
+	  <div class='metrocarousel_image'></div>
+	  <div class='metrocarousel_banner'> 
+		 &nbsp; <!-- without this nbsp, chrome fails to render the banner at all -->
+		 <!-- height MUST be set via CSS -->
+		 <!-- width typically should be set to 100% via CSS -->
+	  </div>
+	  <div class='metrocarousel_labeltext'>
+		 <!-- will be relatively positioned to move atop the banner --> Testing
+	  </div>
+	</div>
 </body>
 
 </html>
