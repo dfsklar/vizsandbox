@@ -69,7 +69,7 @@ div.metrocarousel_labeltext {
 
 div#testbignum {
 	 opacity: 0.0;
-	 background-color: #0B5871;
+	 background-color: steelblue; 
 	 width: 285px;
 	 height: 200px;
 	 position: absolute;
