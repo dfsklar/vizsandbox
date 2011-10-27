@@ -2,7 +2,34 @@ body {
 	 background-color: black;
 }
 
+
+
+
+div#testcustom {
+	 opacity: 0.0;
+	 background-color: black;
+	 color: white;
+	 width: 300px;
+	 height: 200px;
+	 position: absolute;
+	 font-family: verdana;
+	 font-size: 12px;
+	 background-color: maroon;
+	 top: 25;
+	 left: 550;
+	 overflow: hidden;
+}
+
+p {
+	 padding: 8px;
+}
+
+
+
+
+
 div#testcarousel {
+	 opacity: 0.0;
 	 background-color: black;
 	 width: 300px;
 	 height: 300px;
@@ -41,6 +68,7 @@ div.metrocarousel_labeltext {
 
 
 div#testbignum {
+	 opacity: 0.0;
 	 background-color: #0B5871;
 	 width: 285px;
 	 height: 200px;

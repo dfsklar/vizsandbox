@@ -87,6 +87,10 @@ var CLASSmetrotilebase = Class.extend(
 					 this.sliptweenie.start();
 				}
 
+				// The slipcover should now be in its initial position,
+				// so it's OK to let the root div be seen.
+				this.JQNODEdomdiv.css("opacity","1.0");
+
 				this.script = script;
 
 				this.imageloadstatus = {};
@@ -95,7 +99,10 @@ var CLASSmetrotilebase = Class.extend(
 				this.asyncloadimages();
 		  },
 
+
 		  asyncloadimages: function() {
+				// This "each" loop initializes the queue of images to be loaded,
+				// but does not init any loading activity.
 				_.each(this.script,
 						 function(map) {
 							  if (map['image']) {
@@ -104,9 +111,17 @@ var CLASSmetrotilebase = Class.extend(
 							  }
 						 },
 						 this);
+				//
+				// TODO: The loading of images is sequential currently!
+				// This simply starts the loading of the first image in the queue.
 				this.loadNextImage();
+				//
+				// TODO: this really shouldn't occur until the first image is loaded!
+				//    (with special consideration for tiles that don't involve images).
 				this.startmovie();
 		  },
+
+
 
 		  loadNextImage: function() {
 				if (this.imageloadqueue.length > 0) {
@@ -138,6 +153,16 @@ var CLASSmetrotilebase = Class.extend(
 				this.startframe();
 		  },
 
+
+		  placeactors: function() {
+				// This is just a stub to be overridden.
+		  },
+		  startframe: function() {
+				// This is just a stub to be overridden.
+		  },
+		  endframe: function() {
+				// This is just a stub to be overridden.
+		  },
 
 
 		  sleepandthen: function(numsec, arg) {

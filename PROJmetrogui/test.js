@@ -117,6 +117,37 @@ $(document).ready
 		  );
 
 
+		  new CLASSmetrotilebase
+		  ("testcustom",
+			[
+			],
+			{
+				 "behavior-at-end": "loop",
+
+				 "duration-fadein-image":  0.5,
+				 "duration-fadein-banner": 0.5,
+				 "duration-fadein-text":   0.5,
+
+				 "algorithm-fadein-image":  PennerTween.linear,
+				 "algorithm-fadein-banner": PennerTween.linear,
+				 "algorithm-fadein-text":   PennerTween.linear,
+
+				 "duration-fadeout-image":  0.01,
+				 "duration-fadeout-banner": 0.01,
+				 "duration-fadeout-text":   0.01,
+
+				 "opacity-image":  100, // in percent
+				 "opacity-banner": 100,
+				 "opacity-text": 100,
+
+				 "duration-slipcover-movement": 1.8,
+
+				 "duration-hold-on": 2,
+				 "duration-hold-off": 0
+			}
+		  );
+
+
 
 
 
