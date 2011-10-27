@@ -1,9 +1,56 @@
+// A singleton class used to preload any resources
+// needed by all metro tiles.  Each tile will suspend
+// its execution until this singleton states that all is well.
+var CLASSmetrotilebase_static = Class.extend(
+	 {
+		  readyforuse: false,
+
+		  slipcoverimage: null,
+
+		  initialize: function()
+		  {
+				var THIS = this;
+				this.slipcoverimage = new Image();
+				this.slipcoverimage.src = "triangle.png";
+				$(this.slipcoverimage).load
+				(
+					 function(ev){
+						  THIS.readyforuse = true;
+					 }
+				);
+		  }
+	 }
+);
+var SINGLETONmetrotilebase_static = new CLASSmetrotilebase_static();
+
+
+
+
+
 var CLASSmetrotilebase = Class.extend(
 	 {
 		  // A map where ID is the image URL and the value is a boolean specifying whether confirmed as loaded or not
 
 		  initialize: function(IDdomdiv, script, configmap)
 		  {
+				var THIS = this;
+				if ( ! SINGLETONmetrotilebase_static.readyforuse) {
+					 // We must delay until the entire engine is ready for use.
+					 setTimeout(
+						  function(){
+								THIS.initialize(IDdomdiv, script, configmap);
+						  }
+						  , 250);
+				}else{
+					 this._initialize(IDdomdiv, script, configmap);
+				}
+		  },
+
+
+
+
+		  _initialize: function(IDdomdiv, script, configmap) {
+				
 				this.$$ = configmap;
 
             this.IDdomdiv = IDdomdiv;
