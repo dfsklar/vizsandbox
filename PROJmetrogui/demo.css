@@ -9,6 +9,12 @@ div#testcarousel {
 	 position: absolute;
 	 top: 150;
 	 left: 150;
+	 overflow: hidden;
+}
+
+div.metrocarousel_image {
+	 width: 300px;
+	 height: 300px;
 }
 
 
@@ -42,6 +48,7 @@ div#testbignum {
 	 top: 550;
 	 left: 250;
 	 font-family: "Bowlby One SC", arial;
+	 overflow: hidden;
 }
 
 div.metrobignum_bignum {

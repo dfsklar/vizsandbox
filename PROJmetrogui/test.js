@@ -46,6 +46,8 @@ $(document).ready
 				 "duration-hold-on": 3,
 				 "duration-hold-off": 0,
 
+				 "duration-slipcover-movement": 2,
+
 				 "margin-below-banner": 18 //in pixels
 			}
 		  );
@@ -103,6 +105,8 @@ $(document).ready
 				 "opacity-image":  100, // in percent
 				 "opacity-banner": 100,
 				 "opacity-text": 100,
+
+				 "duration-slipcover-movement": 2,
 
 				 "duration-hold-on": 1,
 				 "duration-hold-off": 0

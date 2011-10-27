@@ -26,7 +26,9 @@
 
 <body>
    <div class='metrocarousel_tile'     id='testcarousel'>
-	  <div class='metrocarousel_image'></div>
+	  <div class='metrocarousel_image'>
+		 <!-- width and height MUST be set via CSS and exactly match those for the parent tile div itself -->
+	  </div>
 	  <div class='metrocarousel_banner'> 
 		 &nbsp; <!-- without this nbsp, chrome fails to render the banner at all -->
 		 <!-- height MUST be set via CSS -->
@@ -35,6 +37,7 @@
 	  <div class='metrocarousel_labeltext'>
 		 <!-- will be relatively positioned to move atop the banner --> Testing
 	  </div>
+	  <img src='triangle.png' class='slipcover'/>
 	</div>
 
 
@@ -47,6 +50,7 @@
 	  <div class='metrobignum_labeltext'>
 		 TweetSheets built today
 	  </div>
+	  <img src='triangle.png' class='slipcover'/>
 	</div>
 
 

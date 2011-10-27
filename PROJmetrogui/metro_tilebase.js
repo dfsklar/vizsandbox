@@ -9,6 +9,30 @@ var CLASSmetrotilebase = Class.extend(
             this.IDdomdiv = IDdomdiv;
 				this.JQNODEdomdiv = $('#'+IDdomdiv);
 
+				this.JQNODEslipcover = this.JQNODEdomdiv.children('.slipcover');
+				// The JQNODEslipcover.offset() will return absolute position values for top and left, NOT relative!
+				// Subtract the domdiv's offsets to get the correct values for moving the slipcover.
+				if (this.JQNODEslipcover.length > 0) {
+					 var deltatorepos = (this.JQNODEslipcover.offset().top - this.JQNODEdomdiv.offset().top);
+					 this.JQNODEslipcover.css(
+						  {
+								"position": "relative",
+								"z-index": "30",
+								"top": String(0-deltatorepos)+"px"
+						  }
+					 );
+					 this.sliptweenie = new PennerTween(
+						  this.JQNODEslipcover.get(0).style,
+						  "top",
+						  PennerTween.linear,
+						  0-deltatorepos,
+						  0-deltatorepos-1000,
+						  this.$$["duration-slipcover-movement"],
+						  "px"
+					 );
+					 this.sliptweenie.start();
+				}
+
 				this.script = script;
 
 				this.imageloadstatus = {};
