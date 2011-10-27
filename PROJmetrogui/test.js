@@ -3,6 +3,9 @@ $(document).ready
 	 function()
 	 {
 
+		  // Required before using any metro-tile classes: set up the entire engine.		  
+		  // Pass the relative URL of the image containing the triangular "slipcover".
+		  INITCLASSmetrotilebase("triangle.png");
 
 		  new CLASSmetrocarousel 
 		  ("testcarousel",
@@ -106,9 +109,9 @@ $(document).ready
 				 "opacity-banner": 100,
 				 "opacity-text": 100,
 
-				 "duration-slipcover-movement": 2,
+				 "duration-slipcover-movement": 1.8,
 
-				 "duration-hold-on": 1,
+				 "duration-hold-on": 2,
 				 "duration-hold-off": 0
 			}
 		  );

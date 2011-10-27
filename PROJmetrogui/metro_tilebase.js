@@ -7,11 +7,11 @@ var CLASSmetrotilebase_static = Class.extend(
 
 		  slipcoverimage: null,
 
-		  initialize: function()
+		  initialize: function(slipcoverimage)
 		  {
 				var THIS = this;
 				this.slipcoverimage = new Image();
-				this.slipcoverimage.src = "triangle.png";
+				this.slipcoverimage.src = slipcoverimage;
 				$(this.slipcoverimage).load
 				(
 					 function(ev){
@@ -21,8 +21,15 @@ var CLASSmetrotilebase_static = Class.extend(
 		  }
 	 }
 );
-var SINGLETONmetrotilebase_static = new CLASSmetrotilebase_static();
+var SINGLETONmetrotilebase_static = null;  // GLOBAL
+function INITCLASSmetrotilebase(slipcoverimage)
+{
+	 SINGLETONmetrotilebase_static = new CLASSmetrotilebase_static(slipcoverimage);
+}
 
+
+
+// ******************************************
 
 
 
