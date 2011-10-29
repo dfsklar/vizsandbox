@@ -7,7 +7,6 @@ body {
 
 div#testcustom {
 	 opacity: 0.0;
-	 background-color: black;
 	 color: white;
 	 width: 300px;
 	 height: 200px;
@@ -18,6 +17,11 @@ div#testcustom {
 	 top: 25;
 	 left: 550;
 	 overflow: hidden;
+}
+div#nebulosholder {
+	 width: 300px;
+	 height: 200px;
+	 background-color: white;
 }
 
 p {

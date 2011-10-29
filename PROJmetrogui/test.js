@@ -129,7 +129,9 @@ $(document).ready
 
 
 
-
+		  GLOBALnebulos = new metaaps.nebulos($('#nebulosholder').get(0));
+		  //		  GLOBALnebulos.setFontFamily("tangerine");
+		  GLOBALnebulos.draw();
 	 }
 );
 
