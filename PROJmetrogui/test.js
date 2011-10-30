@@ -198,8 +198,21 @@ $(document).ready
 		  );
 
 
+
 		  new CLASSmetrotilebase
-		  ("testcustom",
+		  ("nebuloswordcloud",
+			[
+			],
+			{
+				 "duration-slipcover-movement": 1.8
+			}
+		  );
+
+
+
+
+		  new CLASSmetrotilebase
+		  ("timeline",
 			[
 			],
 			{

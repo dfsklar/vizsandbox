@@ -63,6 +63,10 @@ var CLASSmetrotilebase = Class.extend(
             this.IDdomdiv = IDdomdiv;
 				this.JQNODEdomdiv = $('#'+IDdomdiv);
 
+//				this.JQNODEdomdiv.css("overflow","hidden");
+
+				this.placeactors();
+
 				this.JQNODEslipcover = this.JQNODEdomdiv.children('.slipcover');
 				// The JQNODEslipcover.offset() will return absolute position values for top and left, NOT relative!
 				// Subtract the domdiv's offsets to get the correct values for moving the slipcover.
@@ -147,8 +151,6 @@ var CLASSmetrotilebase = Class.extend(
 
 		  startmovie: function() {
 				this.frameindex = 0;
-
-				this.placeactors();
 
 				this.startframe();
 		  },

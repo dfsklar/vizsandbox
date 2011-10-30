@@ -15,6 +15,13 @@ var CLASSmetrocarousel = Class.extend(CLASSmetrotilebase,
 				this.JQNODEbanner = this.JQNODEdomdiv.children(".metrocarousel_banner");
 				this.JQNODElabeltext = this.JQNODEdomdiv.children(".metrocarousel_labeltext");
 
+				// Autosize the DIV that directly holds the image to match the root div
+				this.JQNODEimageholder.css(
+					 {
+						  width: String(this.JQNODEdomdiv.width())+"px",
+						  height: String(this.JQNODEdomdiv.height())+"px"
+					 });
+					 
 				// Place the banner and label appropriately
 				this.JQNODEbanner.css(
 					 {
