@@ -4,23 +4,33 @@ body {
 
 
 
+div.metrocarousel_mycity {
+	 width: 222px;
+	 height: 160px;
+	 overflow: hidden;
+}
+div.metrocarousel_mycity div.metrocarousel_image {
+	 width: 222px;
+	 height: 160px;
+}
+
+
+
+
 
 div#testcustom {
 	 opacity: 0.0;
 	 color: white;
-	 width: 300px;
-	 height: 200px;
-	 position: absolute;
+	 width: 206px;
+	 height: 160px;
 	 font-family: verdana;
 	 font-size: 12px;
 	 background-color: maroon;
-	 top: 25;
-	 left: 550;
 	 overflow: hidden;
 }
 div#nebulosholder {
-	 width: 300px;
-	 height: 200px;
+	 width: 206px;
+	 height: 160px;
 	 background-color: rgb(0,94,151);
 }
 
@@ -43,10 +53,6 @@ div#testcarousel {
 	 overflow: hidden;
 }
 
-div.metrocarousel_image {
-	 width: 300px;
-	 height: 300px;
-}
 
 
 div.metrocarousel_banner {
@@ -74,11 +80,8 @@ div.metrocarousel_labeltext {
 div#testbignum {
 	 opacity: 0.0;
 	 background-color: rgb(0,94,151);
-	 width: 285px;
-	 height: 200px;
-	 position: absolute;
-	 top: 550;
-	 left: 250;
+	 width: 206px;
+	 height: 160px;
 	 font-family: "Bowlby One SC", arial;
 	 overflow: hidden;
 }
@@ -86,7 +89,7 @@ div#testbignum {
 div.metrobignum_bignum {
 	 color: white;
 	 text-align: center;
-	 font-size: 80px;
+	 font-size: 60px;
 }
 div.metrobignum_labeltext {
 	 color: lightblue;

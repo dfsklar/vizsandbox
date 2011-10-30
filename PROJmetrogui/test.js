@@ -8,23 +8,15 @@ $(document).ready
 		  INITCLASSmetrotilebase("triangle.png");
 
 		  new CLASSmetrocarousel 
-		  ("testcarousel",
+		  ("MYCITY",
 			[
 				 {
-					  image: "starrynight.jpg",
-					  caption: "Starry Night"
+					  image: "GA_ATL.jpg",
+					  caption: "Atlanta, GA"
 				 },
 				 {
 					  image: "http://imgc.allpostersimages.com/images/P-473-488-90/21/2110/278ED00Z/posters/vincent-van-gogh-the-cafe-terrace-on-the-place-du-forum-arles-at-night-c1888.jpg",
-					  caption: "Cafe in Arles"
-				 },
-				 {
-					  image: "http://imgc.allpostersimages.com/images/P-473-488-90/21/2107/SA3ED00Z/posters/vincent-van-gogh-almond-branches-in-bloom-san-remy-c1890.jpg",
-					  caption: "Almond Tree, San Remy"
-				 },
-				 {
-					  image: "http://imgc.allpostersimages.com/images/P-473-488-90/27/2744/FEBTD00Z/posters/vincent-van-gogh-vase-of-fifteen-sunflowers-c1889.jpg",
-					  caption: "Vase of 15 Sunflowers"
+					  caption: "Arles, France"
 				 }
 			],
 			{
