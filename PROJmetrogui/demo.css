@@ -4,6 +4,30 @@ body {
 
 
 
+div.portfolio {
+	 width: 204px;
+	 height: 162px;
+	 overflow: hidden;
+}
+div.portfolio div.metrocarousel_image {
+	 width: 204px;
+	 height: 162px;
+}
+
+
+
+
+
+
+
+td.portrait img {
+	 width: 220px;
+	 height: 322px;
+}
+
+
+
+
 div.metrocarousel_mycity {
 	 width: 222px;
 	 height: 160px;

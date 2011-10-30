@@ -50,6 +50,48 @@ $(document).ready
 
 
 
+
+
+		  new CLASSmetrocarousel 
+		  ("portfolio",
+			[
+				 {
+					  image: "portfolio_pencils.jpg",
+					  caption: "Portfolio"
+				 }
+			],
+			{
+				 "behavior-at-end": "loop",
+
+				 "duration-fadein-image":  3,
+				 "duration-fadein-banner": 3,
+				 "duration-fadein-text":   3,
+
+				 "algorithm-fadein-image":  PennerTween.linear,
+				 "algorithm-fadein-banner": PennerTween.linear,
+				 "algorithm-fadein-text":   PennerTween.linear,
+
+				 "duration-fadeout-image":  1,
+				 "duration-fadeout-banner": 1,
+				 "duration-fadeout-text":   1,
+
+				 "opacity-image":  100, // in percent
+				 "opacity-banner": 45,
+				 "opacity-text": 100,
+
+				 "duration-hold-on": 3,
+				 "duration-hold-off": 0,
+
+				 "duration-slipcover-movement": 2,
+
+				 "margin-below-banner": 18 //in pixels
+			}
+		  );
+
+
+
+
+
 		  new CLASSmetrobignum
 		  ("testbignum",
 			[
