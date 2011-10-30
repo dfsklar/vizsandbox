@@ -32,7 +32,7 @@ var canvasport = {
             {
 					 // Chrome definitely uses this fork
                 ctx.font = font;
-					 ctx.fillStyle = fillstyle ? fillstyle : "rgba(255, 0, 0, 1)";
+					 ctx.fillStyle = fillstyle ? fillstyle : "rgba(255, 255, 255, 1)";
                 ctx.fillText(text, posx, posy);
             } else {
                 if(ctx.mozDrawText)

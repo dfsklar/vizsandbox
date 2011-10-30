@@ -1,3 +1,11 @@
+// EDITED BY DFSklar
+// EDITED BY DFSklar
+// EDITED BY DFSklar
+//
+// This is NOT the official nebulos.js and care must be
+// taken if upgrading.
+//
+
 var metaaps = {};
 
 // container must be a naked DOM obj (DIV) not wrapped by jQuery
@@ -8,11 +16,7 @@ metaaps.nebulos = function(container) {
     var height = jQcontainer.height();
     this.canvas = canvasport.createCanvas(container, width, height);  //, {"margin":"0px", "padding":"0px", "border":"none"});
 
-	 this.drawdelay /* in 1000 of a second */ = 500;
-
-	 // SKLAR TESTING THE CANVAS
-	 var CC = canvasport.getDrawing(this.canvas);
-	 //	 CC.fillText("FJEIWOFJIEOWJFIOEWJF", 50, 50);
+	 this.drawdelay /* in milliseconds */ = 800; 
 
 
     this.opacityvalue = 0.9;
@@ -32,6 +36,7 @@ metaaps.nebulos = function(container) {
     this.restarthandler = null;
     this.directions = ['ne', 'se', 'nw', 'sw'];
     this.fontfamily = "serif";
+    this.fontfamily = "verdana,helvetica,arial";
     this.minWordSize = 3;
     // a default text list
     this.textlist = [{text: "Nebulos", weight: 30}, {text: "Cool", weight: 15}, {text: "Excellent", weight: 2}, {text: "Want It!", weight: 5}, {text: "Google", weight: 25}, {text: "Rules", weight: 15}, {text: "Visualisation", weight: 10}, {text: "Charts", weight: 10}];
@@ -325,7 +330,7 @@ metaaps.nebulos.prototype = {
 		  window.BOOLnebulosDoDrawBackground = true;
 		  if (window.BOOLnebulosDoDrawBackground) {
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
-				ctx.fillStyle = "rgba(255, 255, 0, 0.5)";
+				ctx.fillStyle = "rgba(255,0,0,0.1)";
 				ctx.fillRect(0, 0, canvas.width, canvas.height);
 		  }
 
@@ -388,14 +393,14 @@ metaaps.nebulos.prototype = {
         var textlist = this.textlist;
         for(var i = 0; i < textlist.length; i++) {
             var item = textlist[i];
-            var fontSize = item.weight * fontincrease;
+            var fontSize = (item.weight * fontincrease) + 10;
             ctx.font = fontSize + 'px ' + nebulos.fontfamily;
             var box = nebulos.measureText(item.text, fontSize, vertical, ctx);
             totalarea.area += box.width * box.height;
         }
         // recalculate fontincrease to have 20% of canvas used, assumes a square rule
         var fontfactor = Math.sqrt((canvas.width * canvas.height) / totalarea.area * nebulos.screenportion) * fontincrease;
-        var maxfontsize = fontfactor * textlist[0].weight;
+        var maxfontsize = (fontfactor * textlist[0].weight) + 10;
         var errormessage = "Could not place: ";
 
 
@@ -405,7 +410,7 @@ metaaps.nebulos.prototype = {
         function draw(){
             var textelement = textlist[nebulos.textlistcount++];
             var weight = textelement.weight;
-            var fontSize = Math.floor(weight * fontfactor);
+            var fontSize = Math.floor(weight * fontfactor) + 8;
             ctx.font = fontSize + 'px ' + nebulos.fontfamily;
             ctx.textBaseline = 'top';
             var opacityvalue = nebulos.getOpacityvalue(fontSize, maxfontsize);
@@ -439,7 +444,7 @@ metaaps.nebulos.prototype = {
             }
             if(nebulos.restarthandler != null)
                 {
-                    setTimeout(function(){nebulos.restarthandler();}, 500);
+                    setTimeout(function(){nebulos.restarthandler();}, nebulos.drawdelay);
                     nebulos.running = false;
                     return;
                 }
