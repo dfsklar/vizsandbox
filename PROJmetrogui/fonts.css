@@ -1,0 +1,24 @@
+@media screen {
+
+@font-face {
+    font-family: 'TradeGothicLTStdCnNo.18';
+    src: url('fonts/tradegothicltstd-cn18-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TradeGothicLTStdBdCnNo.20';
+    src: url('fonts/tradegothicltstd-bdcn20-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TradeGothicLTStdLight';
+    src: url('fonts/tradegothicltstd-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+}

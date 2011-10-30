@@ -19,6 +19,21 @@ div.portfolio div.metrocarousel_image {
 
 
 
+div.education {
+	 width: 232px;
+	 height: 162px;
+	 overflow: hidden;
+}
+div.education div.metrocarousel_image {
+	 width: 232px;
+	 height: 162px;
+}
+
+
+
+
+
+
 
 td.portrait img {
 	 width: 220px;
@@ -88,10 +103,10 @@ div.metrocarousel_banner {
 div.metrocarousel_labeltext {
 	 color: white;
 	 text-align: right;
-	 padding-right: 18px;
+	 padding-right: 22px;
 	 position: relative;
-	 font-size: 22px;
-	 font-family: 'Sansita One', cursive;
+	 font-size: 18px;
+	 font-family: 'TradeGothicLTStdBdCnNo.20', arial;
 }
 
 
@@ -106,18 +121,19 @@ div#testbignum {
 	 background-color: rgb(0,94,151);
 	 width: 206px;
 	 height: 160px;
-	 font-family: "Bowlby One SC", arial;
+	 font-family: "TradeGothicLTStdBdCnNo.20", arial;
 	 overflow: hidden;
 }
 
 div.metrobignum_bignum {
 	 color: white;
+	 margin-top: 22px;
 	 text-align: center;
 	 font-size: 60px;
 }
 div.metrobignum_labeltext {
 	 color: lightblue;
 	 text-align: center;
-	 font-size: 26px;
-	 font-family: "Voltaire", arial;
+	 font-size: 20px;
+	 font-family: "TradeGothicLTStdLight", arial;
 }

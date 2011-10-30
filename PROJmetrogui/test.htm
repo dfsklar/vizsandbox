@@ -20,7 +20,8 @@
 	 <link href='http://fonts.googleapis.com/css?family=Bowlby+One+SC' rel='stylesheet' type='text/css'></link>
 	 <link href='http://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'></link>
 
-    <link rel="stylesheet" href="demo.css" type="text/css"/>
+    <link rel="stylesheet" href="fonts.css" type="text/css"></link>
+    <link rel="stylesheet" href="demo.css" type="text/css"></link>
 
     <script src="test.js"></script> 
 
@@ -51,17 +52,36 @@
 				  <!-- will be relatively positioned to move atop the banner --> Testing
 				</div>
 				<img src='triangle.png' class='slipcover'/>
-			 </div class='portfolio'>
+			 </div>
 		  </td>
 
-		  <td>
+		  <td class='education'>
+			 <div class='education' id='education'>
+				<div class='metrocarousel_image'>
+				  <!-- width and height MUST be set via CSS and exactly match those for the parent tile div itself -->
+				</div>
+				<div class='metrocarousel_banner'> 
+				  &nbsp; <!-- without this nbsp, chrome fails to render the banner at all -->
+				  <!-- height MUST be set via CSS -->
+				  <!-- width typically should be set to 100% via CSS -->
+				</div>
+				<div class='metrocarousel_labeltext'>
+				  <!-- will be relatively positioned to move atop the banner --> Testing
+				</div>
+				<img src='triangle.png' class='slipcover'/>
+			 </div>
 		  </td>
 
 		</tr>
 
 
 		<tr>
-		  <td colspan='2'>
+		  <td colspan='2' class='timeline'>
+			 <div class='timeline' id='timeline'>
+				<div>
+				  <img src='placeholder_worktimeline.png'/>
+				</div>
+			 </div>
 		  </td>
 		</tr>
 
