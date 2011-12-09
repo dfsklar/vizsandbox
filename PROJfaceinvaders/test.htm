@@ -1,0 +1,154 @@
+<html lang="en">
+  <head>
+    <script src="vendorjs/protostring.js"></script> 
+    <script src="vendorjs/protoclass.js"></script> 
+    <script src="vendorjs/jquery-1.6.2.js"></script>
+    <script src="vendorjs/jquery.tween.js"></script>
+    <script src="vendorjs/jquery.dimensions.js"></script>
+    <script src="vendorjs/underscore.js"></script> 
+    <script src="vendorjs/canvasport.js"></script> 
+    <script src="vendorjs/nebulos.js"></script> 
+
+	 <script src="vendorjs/Penner_TweenJS/Tween.js"></script>
+	 <script src="PennerTweenOpacity.js"></script>
+
+    <script src="metro_tilebase.js"></script> 
+    <script src="metro_carousel.js"></script> 
+    <script src="metro_bignum.js"></script> 
+
+	 <link href='http://fonts.googleapis.com/css?family=Sansita+One' rel='stylesheet' type='text/css'></link>
+	 <link href='http://fonts.googleapis.com/css?family=Bowlby+One+SC' rel='stylesheet' type='text/css'></link>
+	 <link href='http://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'></link>
+
+    <link rel="stylesheet" href="fonts.css" type="text/css"></link>
+    <link rel="stylesheet" href="demo.css" type="text/css"></link>
+
+    <script src="test.js"></script> 
+
+  </head>
+
+  <body>
+
+	 <div class='frontpageheader'>
+		<div class='mynameis'>
+		  HI! I'M <span class='firstname'>DEXTER</span> SILVERFISH
+		</div>
+		<div class='whatido'>
+		  Vizify fan, serial entrepreneur, dreamer of wonderful dreams.
+		</div>
+	 </div>
+	 
+
+	 <div class='livetileset'>
+
+		<table class='livetileset'>
+
+		  <tr>
+
+			 <td rowspan='2' class='portrait'>
+				<img src='Person001.jpg'/>
+			 </td>
+
+			 <td class='portfolio'>
+				<div class='portfolio' id='portfolio'>
+				  <div class='metrocarousel_image'>
+					 <!-- width and height MUST be set via CSS and exactly match those for the parent tile div itself -->
+				  </div>
+				  <div class='metrocarousel_banner'> 
+					 &nbsp; <!-- without this nbsp, chrome fails to render the banner at all -->
+					 <!-- height MUST be set via CSS -->
+					 <!-- width typically should be set to 100% via CSS -->
+				  </div>
+				  <div class='metrocarousel_labeltext'>
+					 <!-- will be relatively positioned to move atop the banner --> Testing
+				  </div>
+				  <img src='triangle.png' class='slipcover'/>
+				</div>
+			 </td>
+
+			 <td class='education'>
+				<div class='education' id='education'>
+				  <div class='metrocarousel_image'>
+					 <!-- width and height MUST be set via CSS and exactly match those for the parent tile div itself -->
+				  </div>
+				  <div class='metrocarousel_banner'> 
+					 &nbsp; <!-- without this nbsp, chrome fails to render the banner at all -->
+					 <!-- height MUST be set via CSS -->
+					 <!-- width typically should be set to 100% via CSS -->
+				  </div>
+				  <div class='metrocarousel_labeltext'>
+					 <!-- will be relatively positioned to move atop the banner --> Testing
+				  </div>
+				  <img src='triangle.png' class='slipcover'/>
+				</div>
+			 </td>
+
+		  </tr>
+
+
+		  <tr>
+			 <td colspan='2' class='timeline'>
+				<div class='timeline' id='timeline'>
+				  <div>
+					 <img src='placeholder_worktimeline.png'/>
+				  </div>
+				  <img src='triangle.png' class='slipcover'/>
+				</div>
+			 </td>
+		  </tr>
+
+		</table>
+
+		<table class='livetileset'>
+
+		  <tr>
+
+			 <td>
+				<div class='metrocarousel_customcontent'  id='nebuloswordcloud'>
+				  <div id='nebulosholder'>
+					 <!-- It is essential that your custom content be in a CHILD DIV of the DIV serving as the tile root. -->
+					 <!-- The classname and styling of this DIV can be anything you want.  The metrotile engine does not touch this div. -->
+				  </div>
+				  <img src='triangle.png' class='slipcover'/>
+				</div>
+			 </td>
+
+			 <td>
+				<div class='metrocarousel_mycity' id='MYCITY'>
+				  <div class='metrocarousel_image'>
+					 <!-- width and height MUST be set via CSS and exactly match those for the parent tile div itself -->
+				  </div>
+				  <div class='metrocarousel_banner'> 
+					 &nbsp; <!-- without this nbsp, chrome fails to render the banner at all -->
+					 <!-- height MUST be set via CSS -->
+					 <!-- width typically should be set to 100% via CSS -->
+				  </div>
+				  <div class='metrocarousel_labeltext'>
+					 <!-- will be relatively positioned to move atop the banner --> Testing
+				  </div>
+				  <img src='triangle.png' class='slipcover'/>
+				</div>
+			 </td>
+
+			 <td>
+				<div class='metrocarousel_bignum'  id='testbignum'>
+				  <div class='metrobignum_bignum'> 
+					 &nbsp;
+				  </div>
+				  <div class='metrobignum_labeltext'>
+					 &nbsp;
+				  </div>
+				  <img src='triangle.png' class='slipcover'/>
+				</div>
+			 </td>
+			 
+		  </tr>
+		</table>
+
+
+	 </div>
+
+
+  </body>
+
+</html>
