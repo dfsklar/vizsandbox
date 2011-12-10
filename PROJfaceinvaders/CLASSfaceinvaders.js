@@ -22,11 +22,13 @@ var CLASSfaceinvBullet = Class.extend(
 				this.shape.y = this.y;
 				this.game.stage.addChild(this.shape);
 				this.game.stage.update();
+
+				
 		  },
 
 
 		  // This is called once per "game fast-increment cycle"
-		  update: function()
+		  step: function()
 		  {
 				this.shape.y -= 2;
 				this.game.stage.update();
@@ -50,7 +52,8 @@ var CLASSfaceinvaders = Class.extend(
 				"widthShooter": 6,
 				"heightShooter": 7,
 				"YtopOfShooter": null,
-				
+				"millisecPerFastStep": 500,
+
 				"FIN":"FIN"
 		  },
 		  
@@ -84,10 +87,25 @@ var CLASSfaceinvaders = Class.extend(
 				this.stage.addChild(GOBJ);
 				this.stage.update();
 
+				this.activeFriendlyBullets = new $SET();
+				this.activeEnemyBullets = new $SET();
 
-
+				this.stepfast();
 		  },
 
+		  callstepmethod: function(thetrueval, theobj)
+		  {
+				theobj.step();
+		  },
+
+		  stepfast: function()
+		  {
+				_.each(this.activeFriendlyBullets,
+						 this.callstepmethod,
+						 this);
+				this.timerFast = 
+					 setTimeout('GAME.stepfast()', this.CFG.millisecPerFastStep);
+		  },
 
 		  adjustToWidth: function() 
 		  {
@@ -121,7 +139,10 @@ var CLASSfaceinvaders = Class.extend(
 					 this.stage.update();
 					 break;
 				case 32: /* spacebar */
-					 var XX = new CLASSfaceinvBullet(this.gameobjShooter.x);
+					 this.activeFriendlyBullets.add
+					 (
+						  new CLASSfaceinvBullet(this.gameobjShooter.x)
+					 );
 					 break;
 				default:
 					 //					 alert(evt.keyCode);
