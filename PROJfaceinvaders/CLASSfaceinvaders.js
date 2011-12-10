@@ -1,3 +1,46 @@
+var CLASSfaceinvBullet = Class.extend(
+	 {
+		  x: 0,
+		  y: 0,
+		  game: null,
+		  CFG: null,
+
+		  initialize: function(x)
+		  {
+				this.game = GAME;
+				this.CFG = this.game.CFG;
+				this.x = x;
+				this.y = this.CFG.YtopOfShooter;
+
+				this.shape = new Shape();
+				this.shape.graphics
+					 .beginStroke("black")
+					 .setStrokeStyle(1.2/*thickness*/, "round")
+					 .moveTo(0,0)
+					 .lineTo(0,3);
+				this.shape.x = this.x;
+				this.shape.y = this.y;
+				this.game.stage.addChild(this.shape);
+				this.game.stage.update();
+		  },
+
+
+		  // This is called once per "game fast-increment cycle"
+		  update: function()
+		  {
+				this.shape.y -= 2;
+				this.game.stage.update();
+		  },
+		  
+
+		  fin: "fin"
+	 }
+);
+
+
+
+
+
 var CLASSfaceinvaders = Class.extend(
 	 {
 
@@ -6,6 +49,7 @@ var CLASSfaceinvaders = Class.extend(
 				"marginBottom": 5,
 				"widthShooter": 6,
 				"heightShooter": 7,
+				"YtopOfShooter": null,
 				
 				"FIN":"FIN"
 		  },
@@ -36,6 +80,7 @@ var CLASSfaceinvaders = Class.extend(
 					 .endFill();
 				GOBJ.x = (this.canvasWidth/2);
 				GOBJ.y = (this.canvasHeight - this.CFG.marginBottom - this.CFG.heightShooter);
+				this.CFG.YtopOfShooter = GOBJ.y;
 				this.stage.addChild(GOBJ);
 				this.stage.update();
 
@@ -76,6 +121,7 @@ var CLASSfaceinvaders = Class.extend(
 					 this.stage.update();
 					 break;
 				case 32: /* spacebar */
+					 var XX = new CLASSfaceinvBullet(this.gameobjShooter.x);
 					 break;
 				default:
 					 //					 alert(evt.keyCode);
