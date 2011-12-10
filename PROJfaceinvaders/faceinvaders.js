@@ -9,6 +9,11 @@ $(document).ready
 		  $JQ = $;
 
 
-		  GAME = new CLASSfaceinvaders ("thecanvas");
+		  window.GAME = new CLASSfaceinvaders ("thecanvas");
+		  window.addEventListener('keydown',
+										  function(evt){
+												window.GAME.handleEvent_KEYDOWN(evt);
+										  },
+										  true);
 	 }
 );

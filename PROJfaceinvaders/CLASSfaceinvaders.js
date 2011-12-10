@@ -3,7 +3,11 @@ var CLASSfaceinvaders = Class.extend(
 
 		  CFG: 
 		  {
-				"marginBottom": 5
+				"marginBottom": 5,
+				"widthShooter": 6,
+				"heightShooter": 7,
+				
+				"FIN":"FIN"
 		  },
 		  
 		  initialize: function(IDofCanvasDomnode)
@@ -26,14 +30,17 @@ var CLASSfaceinvaders = Class.extend(
 				var x = 5;
 				GOBJ.graphics.beginFill("#3F352A")
 					 .moveTo(0,0)
-					 .lineTo(-x,x*1.2)
-					 .lineTo(x,x*1.2)
+					 .lineTo(-this.CFG.widthShooter/2, this.CFG.heightShooter)
+					 .lineTo( this.CFG.widthShooter/2, this.CFG.heightShooter)
 					 .lineTo(0,0)
 					 .endFill();
 				GOBJ.x = (this.canvasWidth/2);
-				GOBJ.y = (this.canvasHeight - this.CFG.marginBottom);
+				GOBJ.y = (this.canvasHeight - this.CFG.marginBottom - this.CFG.heightShooter);
 				this.stage.addChild(GOBJ);
 				this.stage.update();
+
+
+
 		  },
 
 
@@ -49,12 +56,38 @@ var CLASSfaceinvaders = Class.extend(
 		  {
 				this.canvasWidth = this.jqcanv.get(0).width;
 				this.canvasHeight = this.jqcanv.get(0).height;
-		  }
-
-		  
+		  },
 
 
-		  
+
+		  handleEvent_KEYDOWN: function(evt)
+		  {
+				switch (evt.keyCode) {
+				case 38:  /* Up arrow was pressed */
+					 break;
+				case 40:  /* Down arrow was pressed */
+					 break;
+				case 37:  /* Left arrow was pressed */
+					 this.gameobjShooter.x -= 2;
+					 this.stage.update();
+					 break;
+				case 39:  /* Right arrow was pressed */
+					 this.gameobjShooter.x += 2;
+					 this.stage.update();
+					 break;
+				case 32: /* spacebar */
+					 break;
+				default:
+					 //					 alert(evt.keyCode);
+				}
+		  },
+
+
+
+
+
+
+		  fin: "fin"
 	 }
 );
 
