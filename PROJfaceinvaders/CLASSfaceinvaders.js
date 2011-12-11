@@ -1,4 +1,4 @@
-var CLASSfaceinvBullet = Class.extend(
+var CLASSfaceinvFriendlyBullet = Class.extend(
 	 {
 		  x: 0,
 		  y: 0,
@@ -29,6 +29,10 @@ var CLASSfaceinvBullet = Class.extend(
 		  step: function()
 		  {
 				this.shape.y -= 3;
+				if (this.shape.y < -10) {
+					 // This bullet is now well offscreen (flew off the top) so delete it.
+					 this.game.activeFriendlyBullets.remove(this);
+				}
 				this.game.stage.update();
 		  },
 		  
@@ -139,7 +143,7 @@ var CLASSfaceinvaders = Class.extend(
 				case 32: /* spacebar */
 					 this.activeFriendlyBullets.add
 					 (
-						  new CLASSfaceinvBullet(this.gameobjShooter.x)
+						  new CLASSfaceinvFriendlyBullet(this.gameobjShooter.x)
 					 );
 					 break;
 				default:
