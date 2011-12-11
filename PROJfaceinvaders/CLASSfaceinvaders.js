@@ -81,7 +81,35 @@ var CLASSfaceinvAlien = Class.extend(
 		  // This is called once per "alien shift cycle"
 		  step: function()
 		  {
-				this.shape.x += this.CFG.alienShiftHorizUnitsPerStep;
+				if (this.game.thisAlienShiftShouldDescend) {
+					 this.shape.y += this.CFG.alienShiftVertUnitsPerDescent;
+				}
+				else {
+					 this.shape.x += this.game.directionAlienShift 
+						  * this.CFG.alienShiftHorizUnitsPerStep;
+				}
+
+				//Check for this alien being too close to left/right edge of canvas
+				if (this.game.directionAlienShift < 0) 
+				{
+					 if (this.shape.x < this.CFG.alienShiftHorizUnitsPerStep) {
+						  this.game.nextAlienShiftShouldDescend = true;
+					 }
+				}
+				else 
+				{
+					 if (				
+						  (
+								this.game.canvasWidth -
+									 (this.shape.x + this.CFG.widthAlienShip)
+						  )
+						  <
+						  this.CFG.alienShiftHorizUnitsPerStep
+					 )
+					 {
+						  this.game.nextAlienShiftShouldDescend = true;
+					 }
+				}
 				this.game.stage.update();
 		  },
 		  
@@ -112,14 +140,17 @@ var CLASSfaceinvaders = Class.extend(
 				"numAlienRows": 3,    /* does not count the reserved superalien row at very top */
 
 				"friendlyBulletUnitsPerFastStep": 5,
-				"alienShiftHorizUnitsPerStep": 10,
+				"alienShiftHorizUnitsPerStep": 7,
+				"alienShiftVertUnitsPerDescent": 9,
 
 				"millisecPerFastStep": 80,
 				"millisecPerAlienShift": 200,
 
 				"FIN":"FIN"
 		  },
-		  
+
+		  nextAlienShiftShouldDescend: false,		  
+		  directionAlienShift: 1,  // +1 means shift right, -1 means shift left
 
 
 		  initialize: function(IDofCanvasDomnode)
@@ -218,12 +249,18 @@ var CLASSfaceinvaders = Class.extend(
 
 		  stepalienshift: function()
 		  {
+				if (this.nextAlienShiftShouldDescend) {
+					 this.directionAlienShift *= -1;
+					 this.thisAlienShiftShouldDescend = true;
+					 this.nextAlienShiftShouldDescend = false;
+				}
 				for (var i=1; i<=this.CFG.numAlienRows; i++) 
 				{
 					 _.each(this.alienRows[i],
 							  this.callstepmethod,
 							  this);
 				}
+				this.thisAlienShiftShouldDescend = false;
 				this.timerAlienShift = 
 					 setTimeout('GAME.stepalienshift()', this.CFG.millisecPerAlienShift);
 		  },
