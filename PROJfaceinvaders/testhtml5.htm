@@ -1,0 +1,66 @@
+<html lang="en">
+  <head>
+    <script src="../vendorjs/protostring.js"></script> 
+    <script src="../vendorjs/protoclass.js"></script> 
+    <script src="../vendorjs/protoset.js"></script> 
+    <script src="../vendorjs/jquery-1.6.2.js"></script>
+    <script src="../vendorjs/jquery.tween.js"></script>
+    <script src="../vendorjs/jquery.dimensions.js"></script>
+    <script src="../vendorjs/underscore.js"></script> 
+
+    <script src="../vendorjs/easel.js"></script> 
+
+	 <script src="../vendorjs/Penner_TweenJS/Tween.js"></script>
+
+    <link rel="stylesheet" href="faceinvaders.css" type="text/css"></link>
+
+    <script src="CLASSfaceinvaders.js"></script> 
+
+	 <script>
+window.onload = function(){
+    var canvas = document.getElementById("thecanvas");
+    var context = canvas.getContext("2d");
+
+
+    context.moveTo(50,  50);
+    context.lineTo(50, 250);
+    context.stroke();
+
+    context.moveTo(54,    50);
+    context.lineTo(54.3, 250);
+    context.stroke();
+
+
+    var centerX = canvas.width / 2;
+    var centerY = canvas.height / 2;
+
+    var radius = 70;
+    context.beginPath();
+    context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+    context.fillStyle = "#8ED6FF";
+    context.fill();
+    context.lineWidth = 5;
+    context.strokeStyle = "black";
+    context.stroke();
+
+    radius = 69.7;
+    context.beginPath();
+    context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+    context.fillStyle = "#8ED6FF";
+    context.fill();
+    context.lineWidth = 5;
+    context.strokeStyle = "black";
+    context.stroke();
+};
+	 </script>
+
+  </head>
+
+  <body>
+
+	 <canvas id='thecanvas' width='900' height='500'>
+	 </canvas>
+
+  </body>
+
+</html>
