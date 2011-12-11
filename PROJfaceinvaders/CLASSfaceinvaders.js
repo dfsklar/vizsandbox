@@ -24,6 +24,8 @@ var CLASSfaceinvFriendlyBullet = Class.extend(
 				this.shape.y = this.y;
 				this.game.stage.addChild(this.shape);
 				this.game.stage.update();
+
+				SoundJS.play("shootfriendlybullet", 1, 1, false);
 		  },
 
 

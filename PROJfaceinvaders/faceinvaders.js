@@ -9,6 +9,17 @@ $(document).ready
 		  $JQ = $;
 
 
+		  // CREATES A SINGLETON so no need to capture the object handle:
+		  new CLASShtml5audio(
+				[
+					 {
+						  name: "shootfriendlybullet",
+						  src: "shootfriendlybullet.mp3"
+					 }
+				]
+		  );
+
+
 		  window.GAME = new CLASSfaceinvaders ("thecanvas");
 		  window.addEventListener('keydown',
 										  function(evt){
