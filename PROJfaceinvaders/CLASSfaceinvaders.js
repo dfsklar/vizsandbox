@@ -1,5 +1,7 @@
+// FRIENDLY BULLET (i.e. bullet shot by player *towards* the aliens
 var CLASSfaceinvFriendlyBullet = Class.extend(
 	 {
+		  shape: null,
 		  x: 0,
 		  y: 0,
 		  game: null,
@@ -45,6 +47,59 @@ var CLASSfaceinvFriendlyBullet = Class.extend(
 
 
 
+
+
+// ALIEN MONSTER
+var CLASSfaceinvAlien = Class.extend(
+	 {
+		  shape: null,
+		  x: 0,
+		  y: 0,
+		  game: null,
+		  CFG: null,
+
+		  initialize: function(leftx,topy)
+		  {
+				this.game = GAME;
+				this.CFG = this.game.CFG;
+				this.x = leftx;
+				this.y = topy;
+
+				this.shape = new Shape();
+				this.shape.graphics
+					 .beginFill("black")
+					 .drawRect(0,0,
+								  this.CFG.widthAlienShip, this.CFG.heightAlienShip)
+					 .endFill();
+				this.shape.x = leftx;
+				this.shape.y = topy;
+				this.game.stage.addChild(this.shape);
+				this.game.stage.update();
+		  },
+
+
+		  // This is called once per "game fast-increment cycle"
+		  step: function()
+		  {
+				alert("NYI");
+				this.shape.y -= 3;
+				if (this.shape.y < -10) {
+					 // This bullet is now well offscreen (flew off the top) so delete it.
+					 this.game.activeFriendlyBullets.remove(this);
+				}
+				this.game.stage.update();
+		  },
+		  
+
+		  fin: "fin"
+	 }
+);
+
+
+
+
+
+
 var CLASSfaceinvaders = Class.extend(
 	 {
 
@@ -54,13 +109,25 @@ var CLASSfaceinvaders = Class.extend(
 				"widthShooter": 6,
 				"heightShooter": 7,
 				"YtopOfShooter": null,
+				"heightAlienRow": 17,
+				"heightAlienShip": 12,
+				"widthAlienShip": 25,
+				"horizPaddingAlienShip": 5,  /* num of units between two aliens on same row */
+				"numAliensPerRow": 1,
+				"numAlienRows": 5,    /* does not count the reserved superalien row at very top */
+
 				"millisecPerFastStep": 100,
 
 				"FIN":"FIN"
 		  },
 		  
+
+
 		  initialize: function(IDofCanvasDomnode)
 		  {
+				// This is a singleton, so initialize the global handle.
+				GAME = this;
+
 				if (IDofCanvasDomnode) {
 					 this.IDofCanvasDomnode = IDofCanvasDomnode;
 				}
@@ -83,16 +150,52 @@ var CLASSfaceinvaders = Class.extend(
 					 .lineTo( this.CFG.widthShooter/2, this.CFG.heightShooter)
 					 .lineTo(0,0)
 					 .endFill();
+				//
+				// Now place the shooter in the world coordinates
 				GOBJ.x = (this.canvasWidth/2);
 				GOBJ.y = (this.canvasHeight - this.CFG.marginBottom - this.CFG.heightShooter);
 				this.CFG.YtopOfShooter = GOBJ.y;
 				this.stage.addChild(GOBJ);
-				this.stage.update();
+
+
+
+
+
+				// CONSTRUCT THE ALIENS
+				this.alienRows = new Array();
+				// index 0 is reserved for the superalien
+				this.alienRows.push(new Array());  // for the superalien
+				// index 1 is therefore the topmost row of regular aliens
+				// each member of the array is itself an array
+				this.constructAlienRow(1);
+
+
 
 				this.activeFriendlyBullets = new $SET();
 				this.activeEnemyBullets = new $SET();
 
+				this.stage.update();
+
 				this.stepfast();
+		  },
+
+		  constructAlienRow: function(rownum) 
+		  {
+				var newrow = new Array();
+				this.alienRows.push(newrow);
+				for (i=0; i<this.CFG.numAliensPerRow; i++) {
+					 newrow.push(this.constructAlien(rownum,i));
+				}
+		  },
+
+		  // Returns the object representing a single alien
+		  constructAlien: function(rownum,indexwithinrow) 
+		  {
+				var x = 
+					 new CLASSfaceinvAlien(this.CFG.heightAlienRow, 
+												  indexwithinrow*(this.CFG.widthAlienShip+
+																		this.CFG.horizPaddingAlienShip));
+				return x;
 		  },
 
 		  callstepmethod: function(theobj, theobjuuid)

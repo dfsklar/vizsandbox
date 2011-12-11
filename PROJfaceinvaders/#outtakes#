@@ -1,0 +1,33 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				for (i=1; i<=this.CFG.numAlienRows; i++) {
+					 this.constructAlienRow(i);
+				}
+
+
