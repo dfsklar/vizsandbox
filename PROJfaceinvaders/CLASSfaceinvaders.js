@@ -36,8 +36,41 @@ var CLASSfaceinvFriendlyBullet = Class.extend(
 					 this.game.activeFriendlyBullets.remove(this);
 				}
 				this.game.stage.update();
+				this.checkForAlienHit();
+		  },
+
+		  // This determines if this bullet has entered the
+		  // body of an alien.
+		  // If it has murdered an alien, not only is the alien destroyed
+		  // but this bullet also must be destroyed.
+		  // TODO: We will optimize this function, but its first incarnation is brute-force!
+		  checkForAlienHit: function()
+		  {
+				for (var i=1; i<=this.CFG.numAlienRows; i++) 
+				{
+					 _.each(this.game.alienRows[i],
+							  this.callhitdetectmethod,
+							  this);
+				}
+		  },
+		  callhitdetectmethod: function(theobj)
+		  {
+				if (theobj.hitdetected(this.shape.x, this.shape.y)) {
+					 this.registerAlienMurder(theobj);
+				}
 		  },
 		  
+		  registerAlienMurder: function(thealien)
+		  {
+				thealien.destructor();
+				this.destructor();
+		  },
+
+		  destructor: function()
+		  {
+				this.game.activeFriendlyBullets.remove(this);
+				this.game.stage.removeChild(this.shape);
+		  },
 
 		  fin: "fin"
 	 }
@@ -53,10 +86,31 @@ var CLASSfaceinvFriendlyBullet = Class.extend(
 var CLASSfaceinvAlien = Class.extend(
 	 {
 		  shape: null,
-		  x: 0,
-		  y: 0,
 		  game: null,
 		  CFG: null,
+
+		  isAlive: true,
+
+		  destructor: function()
+		  {
+				this.isAlive = false;
+				this.game.stage.removeChild(this.shape);
+		  },
+
+		  hitdetected: function(x,y)
+		  {
+				if (!this.isAlive)
+					 return false;
+
+				if ( (x > this.shape.x) && (x < this.shape.x+this.CFG.widthAlienShip) )
+					 if ( (y > this.shape.y) && (y < this.shape.y+this.CFG.heightAlienShip) )
+						  {
+								return true;
+						  }
+
+				return false;
+		  },
+
 
 		  initialize: function(leftx,topy)
 		  {
@@ -81,6 +135,9 @@ var CLASSfaceinvAlien = Class.extend(
 		  // This is called once per "alien shift cycle"
 		  step: function()
 		  {
+				if (!this.isAlive)
+					 return;
+
 				if (this.game.thisAlienShiftShouldDescend) {
 					 this.shape.y += this.CFG.alienShiftVertUnitsPerDescent;
 				}
