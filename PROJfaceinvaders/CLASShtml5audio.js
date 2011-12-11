@@ -38,9 +38,9 @@ var CLASShtml5audio = Class.extend(
 
 				this.ARRsounds = ARRsoundstoload;
 				SoundJS.addBatch(this.ARRsounds);
-				SoundJS.onLoadQueueComplete = alert;
-				SoundJS.onSoundLoadComplete = alert;
-				SoundJS.onProgress = alert;
+//				SoundJS.onLoadQueueComplete = alert;
+//				SoundJS.onSoundLoadComplete = alert;
+//				SoundJS.onProgress = alert;
 				//SINGLETONhtml5audio.handleAllComplete;
 		  },
 

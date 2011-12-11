@@ -97,6 +97,7 @@ var CLASSfaceinvAlien = Class.extend(
 		  {
 				this.isAlive = false;
 				this.game.stage.removeChild(this.shape);
+				SoundJS.play("killalien", 1, 1, false);
 		  },
 
 		  hitdetected: function(x,y)

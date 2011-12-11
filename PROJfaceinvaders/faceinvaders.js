@@ -15,6 +15,10 @@ $(document).ready
 					 {
 						  name: "shootfriendlybullet",
 						  src: "shootfriendlybullet.mp3"
+					 },
+					 {
+						  name: "killalien",
+						  src: "killalien.mp3"
 					 }
 				]
 		  );
