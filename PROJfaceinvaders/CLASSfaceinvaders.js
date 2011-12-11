@@ -30,7 +30,7 @@ var CLASSfaceinvFriendlyBullet = Class.extend(
 		  // This is called once per "game fast-increment cycle"
 		  step: function()
 		  {
-				this.shape.y -= 3;
+				this.shape.y -= this.CFG.friendlyBulletUnitsPerFastStep;
 				if (this.shape.y < -10) {
 					 // This bullet is now well offscreen (flew off the top) so delete it.
 					 this.game.activeFriendlyBullets.remove(this);
@@ -78,15 +78,10 @@ var CLASSfaceinvAlien = Class.extend(
 		  },
 
 
-		  // This is called once per "game fast-increment cycle"
+		  // This is called once per "alien shift cycle"
 		  step: function()
 		  {
-				alert("NYI");
-				this.shape.y -= 3;
-				if (this.shape.y < -10) {
-					 // This bullet is now well offscreen (flew off the top) so delete it.
-					 this.game.activeFriendlyBullets.remove(this);
-				}
+				this.shape.x += this.CFG.alienShiftHorizUnitsPerStep;
 				this.game.stage.update();
 		  },
 		  
@@ -106,17 +101,21 @@ var CLASSfaceinvaders = Class.extend(
 		  CFG: 
 		  {
 				"marginBottom": 5,
-				"widthShooter": 6,
-				"heightShooter": 7,
+				"widthShooter": 12,
+				"heightShooter": 9,
 				"YtopOfShooter": null,
 				"heightAlienRow": 17,
-				"heightAlienShip": 12,
-				"widthAlienShip": 25,
-				"horizPaddingAlienShip": 5,  /* num of units between two aliens on same row */
-				"numAliensPerRow": 1,
-				"numAlienRows": 5,    /* does not count the reserved superalien row at very top */
+ 				"heightAlienShip": 10,
+				"widthAlienShip": 20,
+				"horizPaddingAlienShip": 10,  /* num of units between two aliens on same row */
+				"numAliensPerRow": 9,
+				"numAlienRows": 3,    /* does not count the reserved superalien row at very top */
 
-				"millisecPerFastStep": 100,
+				"friendlyBulletUnitsPerFastStep": 5,
+				"alienShiftHorizUnitsPerStep": 10,
+
+				"millisecPerFastStep": 80,
+				"millisecPerAlienShift": 200,
 
 				"FIN":"FIN"
 		  },
@@ -168,6 +167,8 @@ var CLASSfaceinvaders = Class.extend(
 				// index 1 is therefore the topmost row of regular aliens
 				// each member of the array is itself an array
 				this.constructAlienRow(1);
+				this.constructAlienRow(2);
+				this.constructAlienRow(3);
 
 
 
@@ -177,6 +178,7 @@ var CLASSfaceinvaders = Class.extend(
 				this.stage.update();
 
 				this.stepfast();
+				this.stepalienshift();
 		  },
 
 		  constructAlienRow: function(rownum) 
@@ -192,9 +194,11 @@ var CLASSfaceinvaders = Class.extend(
 		  constructAlien: function(rownum,indexwithinrow) 
 		  {
 				var x = 
-					 new CLASSfaceinvAlien(this.CFG.heightAlienRow, 
-												  indexwithinrow*(this.CFG.widthAlienShip+
-																		this.CFG.horizPaddingAlienShip));
+					 new CLASSfaceinvAlien(
+						  indexwithinrow*(this.CFG.widthAlienShip+
+												this.CFG.horizPaddingAlienShip),
+						  this.CFG.heightAlienRow*rownum
+					 );
 				return x;
 		  },
 
@@ -210,6 +214,18 @@ var CLASSfaceinvaders = Class.extend(
 						 this);
 				this.timerFast = 
 					 setTimeout('GAME.stepfast()', this.CFG.millisecPerFastStep);
+		  },
+
+		  stepalienshift: function()
+		  {
+				for (var i=1; i<=this.CFG.numAlienRows; i++) 
+				{
+					 _.each(this.alienRows[i],
+							  this.callstepmethod,
+							  this);
+				}
+				this.timerAlienShift = 
+					 setTimeout('GAME.stepalienshift()', this.CFG.millisecPerAlienShift);
 		  },
 
 		  adjustToWidth: function() 
