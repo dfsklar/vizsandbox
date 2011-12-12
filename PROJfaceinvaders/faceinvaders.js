@@ -19,6 +19,10 @@ $(document).ready
 					 {
 						  name: "killalien",
 						  src: "killalien.mp3"
+					 },
+					 {
+						  name: "zucker",
+						  src: "zuckersound.mp3"
 					 }
 				]
 		  );

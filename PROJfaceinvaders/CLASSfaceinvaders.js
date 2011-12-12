@@ -16,10 +16,10 @@ var CLASSfaceinvFriendlyBullet = Class.extend(
 
 				this.shape = new Shape();
 				this.shape.graphics
-					 .beginStroke("black")
-					 .setStrokeStyle(1.2/*thickness*/, "round")
+					 .beginStroke("#00FF00")
+					 .setStrokeStyle(1.5/*thickness*/, "round")
 					 .moveTo(0,0)
-					 .lineTo(0,3);
+					 .lineTo(0,5);
 				this.shape.x = this.x;
 				this.shape.y = this.y;
 				this.game.stage.addChild(this.shape);
@@ -33,7 +33,7 @@ var CLASSfaceinvFriendlyBullet = Class.extend(
 		  step: function()
 		  {
 				this.shape.y -= this.CFG.friendlyBulletUnitsPerFastStep;
-				if (this.shape.y < -10) {
+				if (this.shape.y < -14) {
 					 // This bullet is now well offscreen (flew off the top) so delete it.
 					 this.game.activeFriendlyBullets.remove(this);
 				}
@@ -48,7 +48,7 @@ var CLASSfaceinvFriendlyBullet = Class.extend(
 		  // TODO: We will optimize this function, but its first incarnation is brute-force!
 		  checkForAlienHit: function()
 		  {
-				for (var i=1; i<=this.CFG.numAlienRows; i++) 
+				for (var i=0; i<=(this.CFG.numAlienRows+2); i++) 
 				{
 					 _.each(this.game.alienRows[i],
 							  this.callhitdetectmethod,
@@ -84,10 +84,12 @@ var CLASSfaceinvFriendlyBullet = Class.extend(
 
 
 
-// ALIEN MONSTER
+// ALIEN MONSTER (regular kind, not zuckership)
+// The zuckership will be subclassed from this
 var CLASSfaceinvAlien = Class.extend(
 	 {
 		  shape: null,
+		  width: null,
 		  game: null,
 		  CFG: null,
 
@@ -122,16 +124,24 @@ var CLASSfaceinvAlien = Class.extend(
 				this.x = leftx;
 				this.y = topy;
 
+				this.constructModel();
+
+				this.shape.x = leftx;
+				this.shape.y = topy;
+
+				this.game.stage.addChild(this.shape);
+				this.game.stage.update();
+		  },
+
+		  constructModel: function()
+		  {
 				this.shape = new Shape();
 				this.shape.graphics
-					 .beginFill("black")
+					 .beginFill("white")
 					 .drawRect(0,0,
 								  this.CFG.widthAlienShip, this.CFG.heightAlienShip)
 					 .endFill();
-				this.shape.x = leftx;
-				this.shape.y = topy;
-				this.game.stage.addChild(this.shape);
-				this.game.stage.update();
+				this.width = this.CFG.widthAlienShip;
 		  },
 
 
@@ -180,6 +190,38 @@ var CLASSfaceinvAlien = Class.extend(
 
 
 
+var CLASSfaceinvZuckership = Class.extend(
+	 CLASSfaceinvAlien,
+	 {
+		  
+		  direction: 1,  // set to negative to have it go in left dir
+
+		  constructModel: function()
+		  {
+				this.shape = new Shape();
+				this.shape.graphics
+					 .beginFill("red")
+					 .drawRect(0,0,
+								  this.CFG.widthAlienShip, this.CFG.heightAlienShip)
+					 .endFill();
+				this.width = this.CFG.widthAlienShip;
+				SoundJS.play("zucker", 1, 1, true);
+		  },
+		  
+		  step: function() {
+				this.shape.x += 3.2 * this.direction;
+				this.game.stage.update();
+
+				this.timer = 
+					 setTimeout('GAME.alienRows[0][0].step()', this.CFG.millisecPerFastStep);
+
+		  },
+
+		  "FIN": "FIN"
+	 }
+);
+
+
 
 
 
@@ -192,12 +234,12 @@ var CLASSfaceinvaders = Class.extend(
 				"widthShooter": 12,
 				"heightShooter": 9,
 				"YtopOfShooter": null,
-				"heightAlienRow": 17,
+				"heightAlienRow": 22,
  				"heightAlienShip": 10,
 				"widthAlienShip": 20,
-				"horizPaddingAlienShip": 10,  /* num of units between two aliens on same row */
-				"numAliensPerRow": 9,
-				"numAlienRows": 3,    /* does not count the reserved superalien row at very top */
+				"horizPaddingAlienShip": 3,  /* num of units between two aliens on same row */
+				"numAliensPerRow": 11,
+				"numAlienRows": 5,    /* does not count the reserved two rows at very top */
 
 				"friendlyBulletUnitsPerFastStep": 5,
 				"alienShiftHorizUnitsPerStep": 7,
@@ -234,7 +276,8 @@ var CLASSfaceinvaders = Class.extend(
 				this.gameobjShooter = new Shape();
 				var GOBJ = this.gameobjShooter;
 				var x = 5;
-				GOBJ.graphics.beginFill("#3F352A")
+				GOBJ.graphics
+					 .beginFill("#00FF00")
 					 .moveTo(0,0)
 					 .lineTo(-this.CFG.widthShooter/2, this.CFG.heightShooter)
 					 .lineTo( this.CFG.widthShooter/2, this.CFG.heightShooter)
@@ -250,18 +293,17 @@ var CLASSfaceinvaders = Class.extend(
 
 
 
-
-				// CONSTRUCT THE ALIENS
+				// CONSTRUCT THE REGULAR ALIENS (rows 2 through (2+numAlienRows-1))
 				this.alienRows = new Array();
-				// index 0 is reserved for the superalien
+				// index 0 is reserved for the superalien, when present
+				// index 1 is reserved to be left blank (a "margin" row, per orig game)
 				this.alienRows.push(new Array());  // for the superalien
-				// index 1 is therefore the topmost row of regular aliens
+				this.alienRows.push(new Array());  // to be left blank
+				// index 2 is therefore the topmost row of regular aliens
 				// each member of the array is itself an array
-				this.constructAlienRow(1);
-				this.constructAlienRow(2);
-				this.constructAlienRow(3);
-
-
+				for (var currownum=2; currownum < (this.CFG.numAlienRows+2); currownum++) {
+					 this.constructAlienRow(currownum);
+				}
 
 				this.activeFriendlyBullets = new $SET();
 				this.activeEnemyBullets = new $SET();
@@ -270,6 +312,18 @@ var CLASSfaceinvaders = Class.extend(
 
 				this.stepfast();
 				this.stepalienshift();
+				
+				// For testing, immediately construct and launch a zuckership
+				setTimeout('GAME.launchZucker()', 2000);
+		  },
+
+
+		  launchZucker: function() 
+		  {
+				// Hardwired currently to start from left side, for testing
+				var zucker = new CLASSfaceinvZuckership(0, 10);
+				this.alienRows[0].push(zucker);
+				zucker.step();
 		  },
 
 		  constructAlienRow: function(rownum) 
@@ -288,7 +342,7 @@ var CLASSfaceinvaders = Class.extend(
 					 new CLASSfaceinvAlien(
 						  indexwithinrow*(this.CFG.widthAlienShip+
 												this.CFG.horizPaddingAlienShip),
-						  this.CFG.heightAlienRow*rownum
+						  (this.CFG.heightAlienRow*rownum)
 					 );
 				return x;
 		  },
@@ -314,7 +368,7 @@ var CLASSfaceinvaders = Class.extend(
 					 this.thisAlienShiftShouldDescend = true;
 					 this.nextAlienShiftShouldDescend = false;
 				}
-				for (var i=1; i<=this.CFG.numAlienRows; i++) 
+				for (var i=2; i<=(2+this.CFG.numAlienRows); i++) 
 				{
 					 _.each(this.alienRows[i],
 							  this.callstepmethod,
