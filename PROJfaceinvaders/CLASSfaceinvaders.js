@@ -117,14 +117,14 @@ var CLASSfaceinvAlien = Class.extend(
 		  },
 
 
-		  initialize: function(leftx,topy)
+		  initialize: function(leftx,topy, options)
 		  {
 				this.game = GAME;
 				this.CFG = this.game.CFG;
 				this.x = leftx;
 				this.y = topy;
 
-				this.constructModel();
+				this.constructModel(options);
 
 				this.shape.x = leftx;
 				this.shape.y = topy;
@@ -133,7 +133,20 @@ var CLASSfaceinvAlien = Class.extend(
 				this.game.stage.update();
 		  },
 
-		  constructModel: function()
+		  constructModel: function(options)
+		  {
+				this.slingimage = new Image();
+				this.slingimage.src = options.bitmap;
+				this.shape = new Bitmap(this.slingimage);
+				this.shape.compositeOperation = "lighter";
+				this.width = this.CFG.widthAlienShip;
+
+				// Let's scale this down
+				this.shape.scaleX = 0.5;
+				this.shape.scaleY = 0.5;
+		  },
+
+		  constructModel_RECT: function()
 		  {
 				this.shape = new Shape();
 				this.shape.graphics
@@ -196,21 +209,26 @@ var CLASSfaceinvZuckership = Class.extend(
 		  
 		  direction: 1,  // set to negative to have it go in left dir
 
-		  constructModel: function()
+		  constructModel: function(options)
 		  {
-				this.shape = new Shape();
-				this.shape.graphics
-					 .beginFill("red")
-					 .drawRect(0,0,
-								  this.CFG.widthAlienShip, this.CFG.heightAlienShip)
-					 .endFill();
-				this.width = this.CFG.widthAlienShip;
+				this.slingimage = new Image();
+				this.slingimage.src = "zuckship.png";
+				this.shape = new Bitmap(this.slingimage);
+				this.width = 76;
+
+				// Let's scale this down
+				this.shape.scaleX = 0.5;
+				this.shape.scaleY = 0.5;
 				SoundJS.play("zucker", 1, 1, true);
 		  },
 		  
 		  step: function() {
 				this.shape.x += 3.2 * this.direction;
 				this.game.stage.update();
+				
+				if (this.shape.x > this.game.canvasWidth) {
+					 SoundJS.stop("zucker");					 
+				}
 
 				this.timer = 
 					 setTimeout('GAME.alienRows[0][0].step()', this.CFG.millisecPerFastStep);
@@ -234,9 +252,9 @@ var CLASSfaceinvaders = Class.extend(
 				"widthShooter": 12,
 				"heightShooter": 9,
 				"YtopOfShooter": null,
-				"heightAlienRow": 22,
- 				"heightAlienShip": 10,
-				"widthAlienShip": 20,
+				"heightAlienRow": 28,
+ 				"heightAlienShip": 18,
+				"widthAlienShip": 30,
 				"horizPaddingAlienShip": 3,  /* num of units between two aliens on same row */
 				"numAliensPerRow": 11,
 				"numAlienRows": 5,    /* does not count the reserved two rows at very top */
@@ -245,7 +263,7 @@ var CLASSfaceinvaders = Class.extend(
 				"alienShiftHorizUnitsPerStep": 7,
 				"alienShiftVertUnitsPerDescent": 9,
 
-				"millisecPerFastStep": 80,
+				"millisecPerFastStep": 70,
 				"millisecPerAlienShift": 200,
 
 				"FIN":"FIN"
@@ -314,7 +332,7 @@ var CLASSfaceinvaders = Class.extend(
 				this.stepalienshift();
 				
 				// For testing, immediately construct and launch a zuckership
-				setTimeout('GAME.launchZucker()', 2000);
+				setTimeout('GAME.launchZucker()', 1000);
 		  },
 
 
@@ -343,6 +361,11 @@ var CLASSfaceinvaders = Class.extend(
 						  indexwithinrow*(this.CFG.widthAlienShip+
 												this.CFG.horizPaddingAlienShip),
 						  (this.CFG.heightAlienRow*rownum)
+						  ,  
+						  {
+								bitmap: 
+								(rownum > 3) ? "row1and2.png" : "row4and3.png"
+						  }
 					 );
 				return x;
 		  },
