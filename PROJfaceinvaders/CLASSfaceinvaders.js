@@ -221,18 +221,40 @@ var CLASSfaceinvZuckership = Class.extend(
 				this.shape.scaleY = 0.5;
 				SoundJS.play("zucker", 1, 1, true);
 		  },
+
+		  destructor: function()
+		  {
+				this.isAlive = false;
+				this.game.stage.removeChild(this.shape);
+				
+				SoundJS.stop("zucker");
+
+				GAME.alienRows[0].length = 0;  // recommended way to empty an array!
+
+				// Let's set up the next zuckership in a few seconds' time
+				// TODO: randomize this!
+				setTimeout('GAME.launchZucker()', 10000);
+		  },
+
 		  
 		  step: function() {
+
+				if (!this.isAlive) return;
+
 				this.shape.x += 3.2 * this.direction;
 				this.game.stage.update();
 				
 				if (this.shape.x > this.game.canvasWidth) {
-					 SoundJS.stop("zucker");					 
+					 this.destructor();
+					 return;
+				}
+				if (this.shape.x < ( 0 - this.width) ) {
+					 this.destructor();
+					 return;
 				}
 
 				this.timer = 
 					 setTimeout('GAME.alienRows[0][0].step()', this.CFG.millisecPerFastStep);
-
 		  },
 
 		  "FIN": "FIN"
@@ -259,7 +281,7 @@ var CLASSfaceinvaders = Class.extend(
 				"numAliensPerRow": 11,
 				"numAlienRows": 5,    /* does not count the reserved two rows at very top */
 
-				"friendlyBulletUnitsPerFastStep": 5,
+				"friendlyBulletUnitsPerFastStep": 7,
 				"alienShiftHorizUnitsPerStep": 7,
 				"alienShiftVertUnitsPerDescent": 9,
 
