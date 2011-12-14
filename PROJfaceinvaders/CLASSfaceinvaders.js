@@ -386,7 +386,7 @@ var CLASSfaceinvaders = Class.extend(
 						  ,  
 						  {
 								bitmap: 
-								(rownum > 3) ? "row1and2.png" : "row4and3.png"
+								(rownum > 3) ? "example1.png" : "row4and3.png"
 						  }
 					 );
 				return x;

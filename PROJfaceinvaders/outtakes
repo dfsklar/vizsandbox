@@ -25,10 +25,6 @@
 
 
 
-				// index 0 is reserved for the superalient
-				// index 1 is therefore the topmost row of regular aliens
-				// each member of the array is itself an array
-				this.alienRows.push(new Array());  // for the superalien
 
 				for (i=1; i<=this.CFG.numAlienRows; i++) {
 					 this.constructAlienRow(i);
