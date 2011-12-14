@@ -212,7 +212,7 @@ var CLASSfaceinvZuckership = Class.extend(
 		  constructModel: function(options)
 		  {
 				this.slingimage = new Image();
-				this.slingimage.src = "zuckship.png";
+				this.slingimage.src = "zuck_ship2.png";
 				this.shape = new Bitmap(this.slingimage);
 				this.width = 76;
 
