@@ -1,6 +1,6 @@
 use Image::Magick;
 
-$filename = "example2";
+$filename = "example4";
 
 $x = Image::Magick->new;
 $x->Read("alien12_50x50.bmp");
