@@ -8,9 +8,9 @@ require(
 		  "dojo/domReady!"
 	 ], 
 	 function(dom, parser, tiles){
-		  alert("dojo modules loaded, and DOM ready!");
+		  //		  alert("dojo modules loaded, and DOM ready!");
 		  // Init an Ember application
-		  alert("About to launch vizify app and init the tile engine");
+		  //		  alert("About to launch vizify app and init the tile engine");
 		  window.VizifyApp = Ember.Application.create();
 		  INITCLASSmetrotilebase("triangle.png");
 		  alert("About to create the bignum tile");

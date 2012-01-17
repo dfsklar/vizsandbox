@@ -37,19 +37,25 @@ window.metrotile.CLASSmetrotilebase_static = Ember.Object.extend(
 				// This next line adds a onLoaded event handler via JQuery
 				// Note the awkward need for "THIS" for passing scope.
 				// Note also that the DOM IMG "load" event is not reliable in actuality!
-				if (false) {
-					 alert("ASSERT FAIL");
+				if (true) {
+					 // THIS WORKS
+					 // THIS WORKS
+					 // THIS WORKS
 					 $(this.slipcoverimage).load
 					 (
 						  function(ev){
-								THIS.readyforuse = true;
+								THIS.markAsReady();
 						  }
 					 );
 				}
 
 				// Let's try DOJO's technique for connecting events without awkward "THIS""
-				alert("About to try to do a DOJO connect");
-				require(["dojo/_base/connect"], 
+				if (false) {
+					 // THIS FAILS
+					 // THIS FAILS
+					 // THIS FAILS
+					 alert("About to try to do a DOJO connect");
+					 require(["dojo/_base/connect"], 
 						  function(connect)
 						  {
 								alert("About to actually connect");
@@ -57,6 +63,7 @@ window.metrotile.CLASSmetrotilebase_static = Ember.Object.extend(
 								alert("conn made");
 						  }
 						 );
+				}
 		  },
 
 		  markAsReady: function() {
@@ -105,7 +112,8 @@ window.metrotile.CLASSmetrotilebase = Ember.Object.extend(
 						  }
 						  , 250);
 				}else{
-					 this._initialize(IDdomdiv, script, configmap);
+					 alert("Hey, we have a go-ahead to proceed!");
+					 this._initialize();
 				}
 		  },
 
