@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Hello Dojo!</title>
+    <script src="jquery-1.7.1.min.js"></script>
+    <script src="ember-0.9.3.js"></script>
+
+    <script src="tiles/main.js"></script>
+
+    <script 
+		 data-dojo-config="async: 1, tlmSiblingOfDojo: 0, isDebug: 1"
+		 src="dojo/dojo.js" defer></script>
+
+    <!-- The following line fails if "defer" is NOT present as an attribute. -->
+	 <!-- I wonder if ANYthing that uses "require" must have defer present? -->
+	 <script src="vizifyapp.js" defer></script>
+
+
+	 </script>
+</head>
+<body>
+    <h1 id="greeting">Hello</h1>
+</body>
+</html>
