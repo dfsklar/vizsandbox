@@ -1,3 +1,10 @@
+
+// Create a namespace bucket
+// this must be done only once!
+window.metrotile = {
+};
+
+
 // Awkwardnesses here:
 // 1) The way I implement waiting for the singleton instance to be ready.
 // 2) My use of "THIS" to somehow send context to the .load callback.
@@ -8,7 +15,7 @@
 // its execution until this singleton states that all is well.
 
 
-var CLASSmetrotilebase_static = Ember.Object.extend(
+window.metrotile.CLASSmetrotilebase_static = Ember.Object.extend(
 	 {
 		  readyforuse: false,
 
@@ -47,11 +54,13 @@ var CLASSmetrotilebase_static = Ember.Object.extend(
 						  {
 								alert("About to actually connect");
 								connect.connect(this.slipcoverimage, "onLoad", this, this.markAsReady);
+								alert("conn made");
 						  }
 						 );
 		  },
 
 		  markAsReady: function() {
+				alert("the image bitmap has been loaded");
 				this.readyforuse = true;
 		  },
 
@@ -72,7 +81,7 @@ var SINGLETONmetrotilebase_static = null;  // GLOBAL
 
 function INITCLASSmetrotilebase(slipcoverimage)
 {
-	 SINGLETONmetrotilebase_static = CLASSmetrotilebase_static.create({urlSlipcoverimage: slipcoverimage});
+	 SINGLETONmetrotilebase_static = window.metrotile.CLASSmetrotilebase_static.create({urlSlipcoverimage: slipcoverimage});
 }
 
 
@@ -81,18 +90,18 @@ function INITCLASSmetrotilebase(slipcoverimage)
 
 
 
-var CLASSmetrotilebase = Ember.Object.extend(
+window.metrotile.CLASSmetrotilebase = Ember.Object.extend(
 	 {
 		  // A map where ID is the image URL and the value is a boolean specifying whether confirmed as loaded or not
 
-		  init: function(IDdomdiv, script, configmap)
+		  init: function() /*Caller must mixin these: IDdomdiv, script, configmap*/
 		  {
 				var THIS = this;
 				if ( ! SINGLETONmetrotilebase_static.readyforuse) {
 					 // We must delay until the entire engine is ready for use.
 					 setTimeout(
 						  function(){
-								THIS.initialize(IDdomdiv, script, configmap);
+								THIS.init();
 						  }
 						  , 250);
 				}else{
@@ -143,7 +152,10 @@ var CLASSmetrotilebase = Ember.Object.extend(
 		  },
 
 
-		  _initialize: function(IDdomdiv, script, configmap) {
+		  _initialize: function() { 
+				var IDdomdiv = this.IDdomdiv;
+				var script = this.script;
+				var configmap = this.configmap;
 				
 				var THIS = this;
 
