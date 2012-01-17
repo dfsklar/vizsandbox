@@ -241,7 +241,7 @@ window.metrotile.CLASSmetrotilebase = Ember.Object.extend(
 		  asyncloadimages: function() {
 				// This "each" loop initializes the queue of images to be loaded,
 				// but does not init any loading activity.
-				_.each(this.script,
+				this.script.forEach(
 						 function(map) {
 							  if (map['image']) {
 									this.imageloadstatus[map['image']] = null;
