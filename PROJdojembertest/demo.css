@@ -180,3 +180,19 @@ div.metrobignum_labeltext {
 	 padding-left: 15px;
 	 padding-right: 15px;
 }
+
+
+
+
+div.holder_tweets {
+	 height: 500px;
+	 background-color: white;
+}
+
+ul.tweets
+	 height: 480px;
+}
+li.tweet
+	 height: 25px;
+	 background-color: yellow;
+}

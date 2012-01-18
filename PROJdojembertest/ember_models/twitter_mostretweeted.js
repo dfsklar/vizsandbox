@@ -36,6 +36,13 @@ var CLASSemberObj_Tweet = Em.Object.extend();
 var CLASSemberColl_MostRetweeted =
 	 Em.ArrayController.extend(
 		  {
+				content: [],
+
+				init: function()
+				{
+					 this._super();
+				},
+
 				url: "twitterdata_mostretweeted_14830916.json",
 
 				fetch: function() {

@@ -10,13 +10,26 @@ require(
 		  //		  alert("dojo modules loaded, and DOM ready!");
 		  // Init an Ember application
 		  //		  alert("About to launch vizify app and init the tile engine");
-		  window.VizifyApp = Ember.Application.create();
+		  window.VizifyApp = Ember.Application.create(
+				{
+					 ready: function()
+					 {
+						  setTimeout(
+								function()
+								{
+									 window.VizifyApp.emberColl_TwitterMostRetweeted
+										  = CLASSemberColl_MostRetweeted.create().observes("url");
+									 window.VizifyApp.emberColl_TwitterMostRetweeted.fetch();
+								},
+								1000
+						  );
+						  this._super();
+					 }
+				}
+		  );
+
 		  INITCLASSmetrotilebase("triangle.png");
 		  //		  alert("About to create the bignum tile");
-
-		  window.VizifyApp.emberColl_TwitterMostRetweeted
-				= CLASSemberColl_MostRetweeted.create();
-		  window.VizifyApp.emberColl_TwitterMostRetweeted.fetch();
 
 		  window.metrotile.CLASSmetrobignum.create( 
 				{
