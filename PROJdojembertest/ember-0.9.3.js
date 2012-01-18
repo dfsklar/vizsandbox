@@ -14903,8 +14903,11 @@ Ember.Handlebars.bootstrap = function() {
   });
 };
 
-// DFSklar removed this; we want control over when the templates are parsed!
-// Ember.$(document).ready(Ember.Handlebars.bootstrap);
+//DFSklar prefers to control when this is done.
+//If done too early, templates in the HTML may be compiled before
+//their dynamic parts' paths-to-data are even viable, and
+//thus the template is discarded silently.
+//Ember.$(document).ready(Ember.Handlebars.bootstrap);
 
 })({});
 

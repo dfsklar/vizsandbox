@@ -30,7 +30,6 @@ require(
 		  );
 
 		  INITCLASSmetrotilebase("triangle.png");
-		  //		  alert("About to create the bignum tile");
 
 		  window.metrotile.CLASSmetrobignum.create( 
 				{
