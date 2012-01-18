@@ -67,7 +67,7 @@ window.metrotile.CLASSmetrotilebase_static = Ember.Object.extend(
 		  },
 
 		  markAsReady: function() {
-				alert("the image bitmap has been loaded");
+				//alert("the image bitmap has been loaded");
 				this.readyforuse = true;
 		  },
 
@@ -112,7 +112,7 @@ window.metrotile.CLASSmetrotilebase = Ember.Object.extend(
 						  }
 						  , 250);
 				}else{
-					 alert("Hey, we have a go-ahead to proceed!");
+					 //alert("Hey, we have a go-ahead to proceed!");
 					 this._initialize();
 				}
 		  },

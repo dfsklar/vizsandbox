@@ -13,7 +13,7 @@ require(
 		  //		  alert("About to launch vizify app and init the tile engine");
 		  window.VizifyApp = Ember.Application.create();
 		  INITCLASSmetrotilebase("triangle.png");
-		  alert("About to create the bignum tile");
+		  //		  alert("About to create the bignum tile");
 		  window.metrotile.CLASSmetrobignum.create( 
 				{
 					 IDdomdiv: "testbignum",

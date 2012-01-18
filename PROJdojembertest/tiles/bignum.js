@@ -39,7 +39,7 @@ window.metrotile.CLASSmetrobignum = window.metrotile.CLASSmetrotilebase.extend(
 
 
 
-		  startframe: function() {
+		  startframe_PENNER: function() {
 				var THIS = this;
 				var framedata = this.script[this.frameindex];
 
@@ -72,29 +72,73 @@ window.metrotile.CLASSmetrobignum = window.metrotile.CLASSmetrotilebase.extend(
 
 
 
+		  startframe: function() {
+				var THIS = this;
+				var framedata = this.script[this.frameindex];
+
+				this.JQNODEbignumtext.html(framedata.num);
+				this.JQNODElabeltext.html(framedata.caption);
+				var DOMbignumtext = this.JQNODEbignumtext.get(0);
+				var DOMlabeltext = this.JQNODElabeltext.get(0);
+
+				// DOJO bug: the "require" callback function can't obtain
+				// the value of "this" so I must use the THIS hack.
+				require ( ["dojo/_base/fx", "dojo/fx", "dojo/dom", "dojo/_base/connect" ] ,
+							 function(fx,coreFx,dom,connect) 
+							 {
+								  var ARRanims = [];
+								  ARRanims.push( fx.fadeIn
+								  (
+										{
+											 node: DOMbignumtext,
+											 duration: 1000*THIS.$$["duration-fadein-text"]
+										}
+								  ));
+								  ARRanims.push( fx.fadeIn
+								  (
+										{
+											 node: DOMlabeltext,
+											 duration: 1000*THIS.$$["duration-fadein-text"]
+										}
+								  ));
+								  var fullanim = coreFx.combine(ARRanims);
+								  connect.connect(fullanim,
+														"onEnd",
+														THIS.proceednextframe,
+														THIS);
+								  fullanim.play();
+							 }
+						  );
+		  },
+
+
+
 		  endframe: function(nextstep) {
 				var THIS = this;
 				var framedata = this.script[this.frameindex];
 
+				var DOMbignumtext = this.JQNODEbignumtext.get(0);
+				var DOMlabeltext = this.JQNODElabeltext.get(0);
 
-				// FADE OUTTHE BANNER
-				var tweenieBanner = new PennerOpacityTween(
-					 this.JQNODEbignumtext.get(0),
-					 this.$$["algorithm-fadein-banner"],
-					 this.$$["opacity-banner"], 
-					 0, 
-					 this.$$["duration-fadeout-banner"]);
-				tweenieBanner.onMotionFinished = function(){
-					 THIS.sleepandthen(THIS.$$["duration-hold-off"], nextstep);};
-				tweenieBanner.start();
-
-				var tweenieText = new PennerOpacityTween(
-					 this.JQNODElabeltext.get(0),
-					 this.$$["algorithm-fadein-text"],
-					 this.$$["opacity-text"], 
-					 0,
-					 this.$$["duration-fadeout-text"]);
-				tweenieText.start();
+				require ( ["dojo/_base/fx", "dojo/dom" ] ,
+							 function(fx,dom) 
+							 {
+								  fx.fadeOut
+								  (
+										{
+											 node: DOMbignumtext,
+											 duration: 1000*THIS.$$["duration-fadein-text"]
+										}
+								  ).play();
+								  fx.fadeOut
+								  (
+										{
+											 node: DOMlabeltext,
+											 duration: 1000*THIS.$$["duration-fadein-text"]
+										}
+								  ).play();
+							 }
+						  );
 		  },
 
 
