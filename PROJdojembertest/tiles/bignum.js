@@ -39,36 +39,6 @@ window.metrotile.CLASSmetrobignum = window.metrotile.CLASSmetrotilebase.extend(
 
 
 
-		  startframe_PENNER: function() {
-				var THIS = this;
-				var framedata = this.script[this.frameindex];
-
-//				this.JQNODEbignumtext.empty();
-				this.JQNODEbignumtext.html(framedata.num);
-
-//				this.JQNODElabeltext.empty();
-				this.JQNODElabeltext.html(framedata.caption);
-
-				// FADE IN THE BANNER
-				var tweenieBanner = new PennerOpacityTween(
-					 this.JQNODEbignumtext.get(0),
-					 this.$$["algorithm-fadein-banner"],
-					 0, 
-					 this.$$["opacity-banner"], 
-					 this.$$["duration-fadein-banner"]);
-				tweenieBanner.onMotionFinished = function(){
-					 THIS.sleepandthen(THIS.$$["duration-hold-on"],
-											 function(){THIS.proceednextframe();})};
-				tweenieBanner.start();
-
-				var tweenieText = new PennerOpacityTween(
-					 this.JQNODElabeltext.get(0),
-					 this.$$["algorithm-fadein-text"],
-					 0,
-					 this.$$["opacity-text"], 
-					 this.$$["duration-fadein-text"]);
-				tweenieText.start();
-		  },
 
 
 
@@ -104,12 +74,13 @@ window.metrotile.CLASSmetrobignum = window.metrotile.CLASSmetrotilebase.extend(
 								  var fullanim = coreFx.combine(ARRanims);
 								  connect.connect(fullanim,
 														"onEnd",
-														THIS.proceednextframe,
-														THIS);
+														THIS,
+														THIS.proceednextframe);
 								  fullanim.play();
 							 }
 						  );
 		  },
+
 
 
 
@@ -127,13 +98,18 @@ window.metrotile.CLASSmetrobignum = window.metrotile.CLASSmetrotilebase.extend(
 								  (
 										{
 											 node: DOMbignumtext,
-											 duration: 1000*THIS.$$["duration-fadein-text"]
+											 delay: 1000*THIS.$$["duration-hold-on"],
+											 duration: 1000*THIS.$$["duration-fadein-text"],
+											 onEnd: function(){
+												  THIS.sleepandthen(THIS.$$["duration-hold-off"], nextstep);
+											 }
 										}
 								  ).play();
 								  fx.fadeOut
 								  (
 										{
 											 node: DOMlabeltext,
+											 delay: 1000*THIS.$$["duration-hold-on"],
 											 duration: 1000*THIS.$$["duration-fadein-text"]
 										}
 								  ).play();

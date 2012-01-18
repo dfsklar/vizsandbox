@@ -319,9 +319,11 @@ window.metrotile.CLASSmetrotilebase = Ember.Object.extend(
 				return true;
 		  },
 
+
+
 		  proceednextframe: function() {
 				var THIS = this;
-
+				
 				// If there is only one frame, do nothing; this movie is over, looping makes no sense.
 				if (this.script.length == 1)
 					 return;
@@ -343,5 +345,8 @@ window.metrotile.CLASSmetrotilebase = Ember.Object.extend(
 						  THIS.startframe();
 					 });
 		  }
+
+
 	 }
+
 );
