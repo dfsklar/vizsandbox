@@ -10,18 +10,19 @@ require(
 		  //		  alert("dojo modules loaded, and DOM ready!");
 		  // Init an Ember application
 		  //		  alert("About to launch vizify app and init the tile engine");
-		  window.VizifyApp = Ember.Application.create(
+		  window.VizifyApp = Em.Application.create(
 				{
+					 name: "vizapp",
 					 ready: function()
 					 {
 						  setTimeout(
 								function()
 								{
-									 window.VizifyApp.emberColl_TwitterMostRetweeted
-										  = CLASSemberColl_MostRetweeted.create().observes("url");
-									 window.VizifyApp.emberColl_TwitterMostRetweeted.fetch();
+									 EMBERmodelsInit();
+									 window.VizifyApp.emberColl_TwitterMostRetweeted.set("url","twitterdata_mostretweeted_14830916.json");
+									 Ember.Handlebars.bootstrap();
 								},
-								1000
+								2000
 						  );
 						  this._super();
 					 }

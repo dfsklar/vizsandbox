@@ -31,6 +31,10 @@
 </head>
 <body>
     <h1 id="greeting">Hello</h1>
+	 <script type="text/x-handlebars">
+		HELLO, {{window.VizifyApp}}
+	 </script>
+
 	 <div class='metrocarousel_bignum' id='testbignum' style='height:300px;width:300px'>
 				  <div class='metrobignum_bignum'> 
 					 &nbsp;
@@ -41,15 +45,16 @@
 				  <img src='triangle.png' class='slipcover'/>
 	 </div>
 
-	 <div class='holder_tweets'>
 		<script type="text/x-handlebars">
         <ul class="tweets">
-         {{#each window.VizifyApp.emberColl_TwitterMostRetweeted}}
+         {{#each VizifyApp.emberColl_TwitterMostRetweeted}}
             <li class="tweet">{{text}}</li>
          {{/each}}
         </ul>
 		</script>
-    </div>
+
+	 <div class='holder_tweets'>
+	 </div>
 
 </body>
 </html>

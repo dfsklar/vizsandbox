@@ -14903,7 +14903,8 @@ Ember.Handlebars.bootstrap = function() {
   });
 };
 
-Ember.$(document).ready(Ember.Handlebars.bootstrap);
+// DFSklar removed this; we want control over when the templates are parsed!
+// Ember.$(document).ready(Ember.Handlebars.bootstrap);
 
 })({});
 

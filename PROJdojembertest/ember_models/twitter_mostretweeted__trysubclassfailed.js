@@ -31,38 +31,36 @@
  */
 
 
-CLASSemberObj_Tweet = Em.Object.extend();
+var CLASSemberObj_Tweet = Em.Object.extend();
 
-function EMBERmodelsInit()
-{
-	 window.VizifyApp.emberColl_TwitterMostRetweeted =
-		  Em.ArrayController.create(
+var CLASSemberColl_MostRetweeted =
+	 Em.ArrayController.extend(
+		  {
+				content: [],
+
+				init: function()
 				{
-					 content: [],
+					 this._super();
+				},
 
-					 url: "",
+				url: "twitterdata_mostretweeted_14830916.json",
 
-					 refresh: function() {
-						  this.fetch();
-					 }.observes("url"),
-
-					 fetch: function() {
-						  var THIS = this;
-						  $.getJSON(this.url,
-										function(d)
-										{
-											 if (d.success) {
-												  d.tweets.forEach(
-														function(item)
-														{
-															 THIS.pushObject
-															 (CLASSemberObj_Tweet.create(item));
-														}
-												  );
-											 }
+				fetch: function() {
+					 var THIS = this;
+					 $.getJSON(this.url,
+								 function(d)
+								  {
+										if (d.success) {
+											 d.tweets.forEach(
+												  function(item)
+												  {
+														THIS.pushObject
+														(CLASSemberObj_Tweet.create(item));
+												  }
+											 );
 										}
-									  );
-					 }.observes("url")
+								  }
+								 );
 				}
-		  );
-}
+		  }
+	 );
