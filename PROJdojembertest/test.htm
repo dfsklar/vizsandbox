@@ -15,6 +15,8 @@
     <script src="tiles/main.js"></script>
     <script src="tiles/bignum.js"></script>
 
+	 <script src="ember_models/twitter_mostretweeted.js"></script>
+
     <script 
 		 data-dojo-config="async: 1, tlmSiblingOfDojo: 0, isDebug: 1"
 		 src="dojo/dojo.js" defer></script>
@@ -24,7 +26,8 @@
 	 <script src="vizifyapp.js" defer></script>
 
 
-	 </script>
+
+
 </head>
 <body>
     <h1 id="greeting">Hello</h1>
@@ -37,5 +40,16 @@
 				  </div>
 				  <img src='triangle.png' class='slipcover'/>
 	 </div>
+
+	 <div class='holder_tweets'>
+		<script type="text/x-handlebars">
+        <ul class="tweets">
+         {{#each window.VizifyApp.emberColl_TwitterMostRetweeted}}
+            <li class="tweet">{{text}}</li>
+         {{/each}}
+        </ul>
+		</script>
+    </div>
+
 </body>
 </html>
