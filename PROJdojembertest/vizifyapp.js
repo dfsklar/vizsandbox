@@ -18,8 +18,10 @@ require(
 						  setTimeout(
 								function()
 								{
-									 EMBERmodelsInit();
-									 window.VizifyApp.emberColl_TwitterMostRetweeted.set("url","twitterdata_mostretweeted_14830916.json");
+									 window.VizifyApp.emberColl_TwitterMostRetweeted =
+										  CLASSemberColl_MostRetweeted.create();
+									 window.VizifyApp.emberColl_TwitterMostRetweeted.set
+									    ("url","twitterdata_mostretweeted_14830916.json");
 									 Ember.Handlebars.bootstrap();
 								},
 								2000
