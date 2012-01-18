@@ -16,6 +16,7 @@
     <script src="tiles/bignum.js"></script>
 
 	 <script src="ember_models/twitter_mostretweeted.js"></script>
+	 <script src="ember_views/twitter_mostretweeted.js"></script>
 
     <script 
 		 data-dojo-config="async: 1, tlmSiblingOfDojo: 0, isDebug: 1"
@@ -26,7 +27,17 @@
 	 <script src="vizifyapp.js" defer></script>
 
 	 <script type="text/x-handlebars" data-template-name='EMBTPLtweet'>
-            <div class="tweet">{{text}}</li>
+            <div class="tweet">TWEET: {{text}}</div>
+ 	 </script>
+
+	 <!-- This template is attached to a VIEW that has a contentBinding to an
+			aggregate tweetlist model, thus causing the view to have a "content"
+			property accessible by this template.  -->
+	 <script type="text/x-handlebars" data-template-name='EMBTPLtweetcoll'>
+            <div class="holdertweet">
+				  <H2>TWEETHOLDER</H2>
+				  Number of tweets: {{content.length}}
+				</div>
  	 </script>
 
 </head>
@@ -47,6 +58,7 @@
 				  <img src='triangle.png' class='slipcover'/>
 	 </div>
 
+<!--
 		<script type="text/x-handlebars">
         <ul class="tweets">
          {{#each VizifyApp.emberColl_TwitterMostRetweeted}}
@@ -54,9 +66,8 @@
          {{/each}}
         </ul>
 		</script>
+-->
 
-	 <div class='holder_tweets'>
-	 </div>
 
 </body>
 </html>

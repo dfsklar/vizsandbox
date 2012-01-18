@@ -22,7 +22,15 @@ require(
 										  CLASSemberColl_MostRetweeted.create();
 									 window.VizifyApp.emberColl_TwitterMostRetweeted.set
 									    ("url","twitterdata_mostretweeted_14830916.json");
+									 
+									 // THIS IS INDEED TRICKY
+									 // This cannot be done too early.
+									 // Except perhaps if we use only dynamic templates, not in-body-at-load-time templates,
+									 // then maybe we're ok.
 									 Ember.Handlebars.bootstrap();
+
+									 // VIEW CREATION
+									 VizifyApp_CreateView_MostRetweeted();
 								},
 								2000
 						  );

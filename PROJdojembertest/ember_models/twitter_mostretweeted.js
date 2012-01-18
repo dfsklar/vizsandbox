@@ -47,10 +47,9 @@ var CLASSemberColl_MostRetweeted =
 
 				refresh: function() {
 					 this.fetch();
-				}.observes("url"),
+				},
 
 				fetch: function() {
-					 alert("FETCH");
 					 var THIS = this;
 					 $.getJSON(this.url,
 								  function(d)
@@ -66,6 +65,6 @@ var CLASSemberColl_MostRetweeted =
 										}
 								  }
 								 );
-				}
+				}.observes("url")
 		  }
 	 );
