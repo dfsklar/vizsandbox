@@ -31,9 +31,9 @@
  */
 
 
-var CLASSemberObj_Tweet = Em.Object.extend();
+Vz.models.Tweet = Em.Object.extend();
 
-var CLASSemberColl_MostRetweeted =
+Vz.models.MostRetweetedCollection =
 	 Em.ArrayController.extend(
 		  {
 				content: [],
@@ -59,7 +59,7 @@ var CLASSemberColl_MostRetweeted =
 												  function(item)
 												  {
 														THIS.pushObject
-														(CLASSemberObj_Tweet.create(item));
+														(Vz.models.Tweet.create(item));
 												  }
 											 );
 										}

@@ -10,18 +10,18 @@ require(
 		  //		  alert("dojo modules loaded, and DOM ready!");
 		  // Init an Ember application
 		  //		  alert("About to launch vizify app and init the tile engine");
-		  window.VizifyApp = Em.Application.create(
+		  Vz.EmberApp = Em.Application.create(
 				{
-					 name: "vizapp",
+					 name: "Vizume",
 					 ready: function()
 					 {
 						  setTimeout(
 								function()
 								{
-									 window.VizifyApp.emberColl_TwitterMostRetweeted =
-										  CLASSemberColl_MostRetweeted.create();
-									 window.VizifyApp.emberColl_TwitterMostRetweeted.set
-									    ("url","twitterdata_mostretweeted_14830916.json");
+									 Vz.models.tweetsMostRetweeted =
+										  Vz.models.MostRetweetedCollection.create();
+									 Vz.models.tweetsMostRetweeted.set
+									 ("url","twitterdata_mostretweeted_14830916.json");
 									 
 									 // THIS IS INDEED TRICKY
 									 // This cannot be done too early.
@@ -30,7 +30,7 @@ require(
 									 Ember.Handlebars.bootstrap();
 
 									 // VIEW CREATION
-									 VizifyApp_CreateView_MostRetweeted();
+									 Vz.views.CreateViewTweetsMostRetweeted();
 								},
 								2000
 						  );
