@@ -29,7 +29,7 @@
 	 <script src="vizifyapp.js" defer></script>
 
 	 <script type="text/x-handlebars" data-template-name='EMBTPLtweet'>
-            <div class="tweet">TWEET: {{text}}</div>
+            <div class="tweet">TWEET ({{testhelper retweet_count}}): {{text}}</div>
  	 </script>
 
 	 <!-- This template is attached to a VIEW that has a contentBinding to an
@@ -60,15 +60,6 @@
 				  <img src='triangle.png' class='slipcover'/>
 	 </div>
 
-<!--
-		<script type="text/x-handlebars">
-        <ul class="tweets">
-         {{#each VizifyApp.emberColl_TwitterMostRetweeted}}
-            <li class="tweet">{{text}}</li>
-         {{/each}}
-        </ul>
-		</script>
--->
 
 
 </body>

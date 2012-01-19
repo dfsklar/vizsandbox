@@ -1,0 +1,26 @@
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th />
+    </tr>
+  </thead>
+  <tbody>
+  {{#each contacts}}
+    {{view App.ShowContactView contactBinding="this"}}
+  {{/each}}
+  {{#if isNewVisible}}
+    <tr>
+      <td></td>
+      <td colspan="2">
+        {{view App.NewContactView}}
+      </td>
+    </tr>
+  {{/if}}
+  </tbody>
+</table>
+<div class="commands">
+  {{#view Ember.Link action="showNew"}}New Contact{{/view}}
+  {{#view Ember.Link action="refreshListing"}}Refresh Listing{{/view}}
+</div>

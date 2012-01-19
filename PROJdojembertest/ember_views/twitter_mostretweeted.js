@@ -1,3 +1,10 @@
+Handlebars.registerHelper('testhelper', function(property,arg2,arg3) {
+  var value = Ember.getPath(this, property);
+  return new Handlebars.SafeString('<span class="highlight">'+value+'</span>');
+});
+
+
+
 Vz.views.CreateViewTweetsMostRetweeted = function()
 {
 	 Vz.views.tweetsMostRetweeted =
