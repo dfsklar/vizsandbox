@@ -3,6 +3,22 @@ $(document).ready(function() {
 });
 
 
+/*
+
+TAGS:
+
+varycolor-varyradius-circleonly
+
+singlecolor-varyoval-varygradient
+   Each lane has a single color, so we can
+   match the colors of the circles on that lane.
+   Each obj starts out as a circle, but then
+   stretches into an oval as it fades out.
+
+*/
+
+
+
 function MAIN()
 {
 	 vz.colors.load();
@@ -21,9 +37,10 @@ function MAIN()
 	 var baseY = 100;
 
 
-	 var opacitySpeed = -0.1;
+	 var opacitySpeed = -0.05;
 
-	 var cometSpeed = 50;
+	 var cometSpeed = 15;
+	 var ellipseStretchSpeed = 4;
 
 	 function RandomizeInt(num, percentage)
 	 {
@@ -31,7 +48,7 @@ function MAIN()
 		  return ret;
 	 }
 
-	 var targetRadius = 50;
+	 var targetRadius = 70;
 
 	 var startX = 50;
 	 var targetX = 800;
@@ -44,54 +61,89 @@ function MAIN()
 
 	 var isDirty = false;
 
-	 function CreateFadingCircle(x,y) {
+	 function CreateFadingCircle(x,y,coreColor) {
 		  var theshape = new Shape();
 
-		  var radius = RandomizeInt(targetRadius, 0.25/*percentage*/);
+		  var radius;
+				// varying the ellipses's height proved disastrous
+				// instead we'll vary its gradient
+				// = RandomizeInt(targetRadius, 0.15/*percentage*/);
+		  radius = targetRadius;
+		  
+		  var gradientMileposts = 
+				[
+					 new vz.Color("#110000"),
+					 new vz.Color("#FF0000"), 
+					 new vz.Color("#110000")
+				];
 
-		  var idx = Math.min(numColorSteps-1, Math.round(numColorSteps*(x-startX)/targetX));
-		  var coreColor = colors[idx];
+		  var thelength = RandomizeInt(targetRadius, 0.15/*percentage*/);
 
-		  theshape.graphics
-				.setStrokeStyle(0)
-				.beginLinearGradientFill(["#000000", coreColor.hex(), "#000000"],[0,0.5,1], 0,-radius,   0,radius)
-				.drawCircle(0,0,radius);
+		  var RND = function() {
+				return Math.round(Math.random()*20);
+		  }
+
+		  var drawme = function() {
+				theshape.graphics
+					 .clear()
+					 .setStrokeStyle(0)
+					 .beginLinearGradientFill(
+						  [
+								gradientMileposts[0].darken(RND()).saturate(RND()).hex(),
+								gradientMileposts[1].darken(RND()).saturate(RND()).hex(),
+								gradientMileposts[2].darken(RND()).saturate(RND()).hex()
+						  ]
+						  ,[0.5,0.75,1], 0,-radius, 0,radius)
+					 .drawEllipse(0,0,thelength,radius);
+		  }
+
+
+// CIRCLES:  the gradient fill ratios work correctly for circles but not ellipses
+//					 .beginLinearGradientFill(["#FF0000", "#00FF00"],[0,1], 0,-radius,   0,radius)
+//					 .drawCircle(0,0,radius);
+
+// BUG in drawEllipse: the top of the ellipse is ratio 0.5
+
 		  theshape.x = x;
 		  theshape.y = y;
+
 		  theshape.alpha = 0.6;
+
 		  stage.addChild(theshape);
 		  isDirty = true;
 		  var func = function() {
+				thelength += ellipseStretchSpeed;
+				drawme();
 				theshape.alpha += opacitySpeed;
 				isDirty = true;
 				if (theshape.alpha > 0) {
-					 setTimeout(func, 160);
+					 setTimeout(function(){func();}, 160);
 				}else{
 					 stage.removeChild(theshape);
-					 console.log("Removing a shape.  The children length is now:");
-					 console.log(stage.children.length);
 				}
 		  };
-		  setTimeout(func, 160);
+		  setTimeout(function(){func();}, 160);
 	 }
 
+	 var redcolor = new vz.Color("#FF0000");
 	 function ExtendJetStream(curx, baseY, spawnDoneYet) {
 		  curx += cometSpeed;
-		  CreateFadingCircle(curx, baseY);
+		  CreateFadingCircle(curx, baseY, redcolor);
 		  if (curx < targetX) {
 				setTimeout(function(){
 					 ExtendJetStream(curx,baseY,spawnDoneYet);
 				}, 40);
-				if ((curx > 300) && (curx < targetX)) {
-					 spawnDoneYet = true;
-					 if (baseY < 400)
-						  ExtendJetStream(startX, baseY+120, false);
+				if (!spawnDoneYet) {
+					 if ((curx > 300) && (curx < targetX)) {
+						  spawnDoneYet = true;
+						  if (baseY < 400)
+								ExtendJetStream(startX, baseY+120, false);
+					 }
 				}
 		  }
 	 }
 	 
-	 ExtendJetStream(startX, baseY, false);
-
+	 
 	 function Refresher() {
 		  if (isDirty) {
 				stage.update();
@@ -103,5 +155,7 @@ function MAIN()
 	 }
 
 	 Refresher();
-	 
+
+
+	 ExtendJetStream(startX, baseY, false);
 }
