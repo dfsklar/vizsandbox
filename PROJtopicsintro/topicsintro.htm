@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Demo Intro Anim</title>
+
+
+<link rel="stylesheet" href="topicsintro.css" type="text/css"/>
+
+<script src="box2d/lib/protoclass.js"></script>
+
+<!-- JQuery is causing problems here, we will have to figure out how to use both -->
+<script src="jquery-1.6.3.js"></script>
+<script src="jquery.dimensions.js"></script> 
+<script src="sugar.js"></script> 
+
+
+<script>
+vz = {};
+vz.createClass = function(){
+var F = function(){
+   this.init.apply(this, arguments);
+}
+F.prototype.init = function(){};
+return F;
+}
+</script>
+
+<script src="easel.js"></script>
+
+<script src="color.js"></script> 
+
+
+
+<script src="topicsintro.js"></script>
+
+
+
+</head>
+
+
+<body>
+
+<p>
+Sklar ideas:
+
+<ul>
+  <li>Randomized Bezier shape instead of circles!
+</ul>
+
+<canvas></canvas>
+
+<p>Number of circles: <span id="count"/>
+</body>
+</html>
