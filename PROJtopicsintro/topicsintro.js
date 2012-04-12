@@ -34,13 +34,12 @@ function MAIN()
 	 
 	 var stage = new Stage($canvas.get(0));
 
-	 var baseY = 100;
+	 var baseY = 70;
 
-
-	 var opacitySpeed = -0.05;
+	 var opacitySpeed = -0.03;
 
 	 var cometSpeed = 15;
-	 var ellipseStretchSpeed = 4;
+	 var ellipseStretchSpeed = 8;
 
 	 function RandomizeInt(num, percentage)
 	 {
@@ -55,9 +54,8 @@ function MAIN()
 
 	 var rangeX = targetX-startX;
 
-	 var numColorSteps = 100;
-    var colors = new vz.Color("#AA0000").stepColorTo(new vz.Color("#FFFF00"), numColorSteps);
-
+	 var numColorSteps = 4;
+    var colors = new vz.Color("#FF0000").stepColorTo(new vz.Color("#FFFF00"), numColorSteps);
 
 	 var isDirty = false;
 
@@ -72,9 +70,9 @@ function MAIN()
 		  
 		  var gradientMileposts = 
 				[
-					 new vz.Color("#110000"),
-					 new vz.Color("#FF0000"), 
-					 new vz.Color("#110000")
+					 coreColor.darken(85),
+					 coreColor,
+					 coreColor.darken(85)
 				];
 
 		  var thelength = RandomizeInt(targetRadius, 0.15/*percentage*/);
@@ -126,18 +124,18 @@ function MAIN()
 	 }
 
 	 var redcolor = new vz.Color("#FF0000");
-	 function ExtendJetStream(curx, baseY, spawnDoneYet) {
+	 function ExtendJetStream(curx, baseY, idxColor, spawnDoneYet) {
 		  curx += cometSpeed;
-		  CreateFadingCircle(curx, baseY, redcolor);
+		  CreateFadingCircle(curx, baseY, colors[idxColor]);
 		  if (curx < targetX) {
 				setTimeout(function(){
-					 ExtendJetStream(curx,baseY,spawnDoneYet);
+					 ExtendJetStream(curx,baseY,idxColor,spawnDoneYet);
 				}, 40);
 				if (!spawnDoneYet) {
 					 if ((curx > 300) && (curx < targetX)) {
 						  spawnDoneYet = true;
 						  if (baseY < 400)
-								ExtendJetStream(startX, baseY+120, false);
+								ExtendJetStream(startX, baseY+100, idxColor+1, false);
 					 }
 				}
 		  }
@@ -157,5 +155,5 @@ function MAIN()
 	 Refresher();
 
 
-	 ExtendJetStream(startX, baseY, false);
+	 ExtendJetStream(startX, baseY, 0/*idxColorForLanes*/, false);
 }
