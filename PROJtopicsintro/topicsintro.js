@@ -39,7 +39,7 @@ function MAIN()
 	 var opacitySpeed = -0.03;
 
 	 var cometSpeed = 15;
-	 var ellipseStretchSpeed = 8;
+	 var ellipseStretchSpeed = 15;
 
 	 function RandomizeInt(num, percentage)
 	 {
@@ -47,7 +47,7 @@ function MAIN()
 		  return ret;
 	 }
 
-	 var targetRadius = 70;
+	 var targetRadius = 40;
 
 	 var startX = 50;
 	 var targetX = 800;
@@ -63,19 +63,16 @@ function MAIN()
 		  var theshape = new Shape();
 
 		  var radius;
-				// varying the ellipses's height proved disastrous
-				// instead we'll vary its gradient
-				// = RandomizeInt(targetRadius, 0.15/*percentage*/);
-		  radius = targetRadius;
+		  radius = RandomizeInt(targetRadius, 0.25/*percentage*/);
 		  
 		  var gradientMileposts = 
 				[
-					 coreColor.darken(85),
+					 coreColor.darken(90),
 					 coreColor,
-					 coreColor.darken(85)
+					 coreColor.darken(90)
 				];
 
-		  var thelength = RandomizeInt(targetRadius, 0.15/*percentage*/);
+		  var thelength = RandomizeInt(2*targetRadius, 0.15/*percentage*/);
 
 		  var RND = function() {
 				return Math.round(Math.random()*20);
@@ -91,8 +88,13 @@ function MAIN()
 								gradientMileposts[1].darken(RND()).saturate(RND()).hex(),
 								gradientMileposts[2].darken(RND()).saturate(RND()).hex()
 						  ]
-						  ,[0.5,0.75,1], 0,-radius, 0,radius)
-					 .drawEllipse(0,0,thelength,radius);
+						  ,
+						  [0,0.5,1]
+						  ,
+						  0,0,
+						  0,(2*radius)
+					 )
+					 .drawEllipse(0,0,thelength,radius*2);
 		  }
 
 
@@ -102,10 +104,10 @@ function MAIN()
 
 // BUG in drawEllipse: the top of the ellipse is ratio 0.5
 
-		  theshape.x = x;
-		  theshape.y = y;
+		  theshape.x = x-(thelength/2);
+		  theshape.y = y-radius;
 
-		  theshape.alpha = 0.6;
+		  theshape.alpha = 0.4;
 
 		  stage.addChild(theshape);
 		  isDirty = true;
